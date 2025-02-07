@@ -6,13 +6,13 @@ I had mainly used Sets in JavaScript when I needed to make sure I had an object 
 
 | Method | Summary | Return Value |
 |--------|---------|--------------|
-| [difference](#difference-) | Elements in the first set but not in the second | Set |
-| [intersection](#intersection-) | Elements common to both sets | Set |
-| [isDisjointFrom](#isDisjointFrom-) | Checks if two sets have no elements in common | Boolean |
-| [isSubsetOf](#isSubsetOf-) | Checks if all elements of the first set are in the second set | Boolean |
-| [isSupersetOf](#isSupersetOf-) | Checks if all elements of the second set are in the first set | Boolean |
-| [symmetricDifference](#symmetricDifference-) | Elements in either set but not in both | Set |
-| [union](#union-) | All elements from both sets | Set |
+| [difference](#difference-) | Elements in the first set but not in the second | `Set` |
+| [intersection](#intersection-) | Elements common to both sets | `Set` |
+| [isDisjointFrom](#isDisjointFrom-) | Checks if two sets have no elements in common | `Boolean` |
+| [isSubsetOf](#isSubsetOf-) | Checks if all elements of the first set are in the second set | `Boolean` |
+| [isSupersetOf](#isSupersetOf-) | Checks if all elements of the second set are in the first set | `Boolean` |
+| [symmetricDifference](#symmetricDifference-) | Elements in either set but not in both | `Set` |
+| [union](#union-) | All elements from both sets | `Set` |
 
 ## Let’s Dive In
 
