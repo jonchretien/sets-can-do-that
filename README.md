@@ -18,7 +18,7 @@ I had mainly used Sets in JavaScript when I needed to make sure I had an object 
 
 ### difference 🍦
 
-Which ice cream flavors are in the first set, but not in the second one? – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/difference)
+Which ice cream flavors are in the first set, but **not** in the second one? – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/difference)
 
 Usage
 ```javascript
@@ -47,7 +47,7 @@ Set(2) {'Chocolate', 'Strawberry'}
 
 ### intersection 🚗
 
-Which cars are in both sets? – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/intersection)
+Which cars are in **both sets**? – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/intersection)
 
 Usage
 ```javascript
@@ -105,7 +105,7 @@ false
 
 ### isSubsetOf 🦸🏽‍♀️
 
-Check if the **all superheroes** in the first set are also in the other set. Returns `true` if yes, `false` if no. – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSubsetOf)
+Check if **all superheroes** in the first set **are also** in the other set. Returns `true` if yes, `false` if no. – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSubsetOf)
 
 Usage
 ```javascript
@@ -133,7 +133,7 @@ true
 
 ### isSupersetOf 🏞️
 
-Check if the **all national parks** in the second set are also in the first set. Returns `true` if yes, `false` if no. – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf)
+Check if the **all national parks** in the second set **are also** in the first set. Returns `true` if yes, `false` if no. – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf)
 
 Usage
 ```javascript
@@ -191,7 +191,7 @@ Set(5) { 'Miles Davis', 'Thelonious Monk', 'Herbie Hancock', 'Wayne Shorter', 'O
 
 ### union 👟
 
-Which Nike sneakers are in either **or** both of the sets? – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/union)
+Which Nike sneakers are in **either or both** of the sets? – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/union)
 
 Usage
 ```javascript
