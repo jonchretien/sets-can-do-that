@@ -133,7 +133,7 @@ true
 
 ### isSupersetOf 🏞️
 
-Check if the **all national parks** in the second set **are also** in the first set. Returns `true` if yes, `false` if no. – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf)
+Check if **all national parks** in the second set **are also** in the first set. Returns `true` if yes, `false` if no. – [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf)
 
 Usage
 ```javascript
