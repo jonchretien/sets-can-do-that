@@ -1,0 +1,29 @@
+{
+  "name": "sets-can-do-that",
+  "version": "1.0.0",
+  "description": "Showcase of composition methods for JavaScript Sets.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonchretien/sets-can-do-that.git"
+  },
+  "keywords": [
+    "javascript",
+    "sets"
+  ],
+  "author": "Jon Chretien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonchretien/sets-can-do-that/issues"
+  },
+  "homepage": "https://github.com/jonchretien/sets-can-do-that#readme",
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}

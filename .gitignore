@@ -1,0 +1,20 @@
+# OS generated files #
+######################
+
+.DS_Store
+Icon
+Thumbs.db
+
+
+# Folders #
+######################
+
+dist/
+node_modules/
+
+
+# Misc. #
+######################
+
+*.ico
+.rsync
