@@ -87,9 +87,11 @@ function createSubsetDiagram() {
 
 function createSupersetDiagram() {
   return `
-    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="superset diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
-      <rect width="100%" height="100%" fill="#fff"/>
-      <circle cx="200" cy="150" r="85" fill="#111" fill-opacity="0.22" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
-      <circle cx="200" cy="150" r="55" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
-    </svg>`;
+  <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="superset diagram">
+    <rect width="100%" height="100%" fill="#fff"/>
+    <circle cx="150" cy="100" r="75" fill="#fff" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+    <circle cx="150" cy="120" r="50" fill="#fff" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+    <text transform="translate(144.358 44.51)">A</text>
+    <text transform="translate(144.361 94.51)">B</text>
+  </svg>`;
 }
