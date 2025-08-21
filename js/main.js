@@ -25,6 +25,13 @@ function initializeApp() {
     updateUrlHash(methodName);
   }
 
+  function handleHashNavigation() {
+    const hash = extractHashFromUrl();
+    if (hash && data[hash]) {
+      renderMethod(hash);
+    }
+  }
+
   // initialize UI
   selectElement = createSelectMenu(renderMethod);
   contentElement = createContentArea();
@@ -40,10 +47,10 @@ function initializeApp() {
   }
 
   // handle initial hash
-  const initialHash = extractHashFromUrl();
-  if (initialHash && data[initialHash]) {
-    renderMethod(initialHash);
-  }
+  handleHashNavigation();
+
+  // listen for hash changes (back/forward button)
+  window.addEventListener('hashchange', handleHashNavigation);
 }
 
 // start the application
