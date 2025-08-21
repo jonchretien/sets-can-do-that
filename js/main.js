@@ -6,7 +6,7 @@ import {
 } from './utils/domUtils.js';
 import { createSelectMenu } from './ui/selectMenu.js';
 import { createContentArea, renderMethodContent } from './ui/contentArea.js';
-import { renderDiagramWithFallback } from './ui/diagramRenderer.js';
+import { renderDiagram } from './ui/diagramRenderer.js';
 import { CONFIG } from './config/constants.js';
 
 function getRandomMethod() {
@@ -27,7 +27,7 @@ function initializeApp() {
     contentElement.innerHTML = renderMethodContent(methodName, methodData);
 
     const diagramElement = contentElement.querySelector('.diagram');
-    renderDiagramWithFallback(diagramElement, methodName, methodData.image);
+    renderDiagram(diagramElement, methodName, methodData.image);
 
     updateUrlHash(methodName);
   }
