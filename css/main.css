@@ -293,13 +293,17 @@ footer {
 
   header {
     padding-block-start: var(--spacing-xl);
-    padding-block-end: var(--spacing-lg);
+    padding-block-end: 0;
     padding-inline-start: 0;
     padding-inline-end: 0;
   }
 
   header h1 {
-    font-size: var(--font-size-4xl);
+    font-size: var(--font-size-5xl);
+  }
+
+  header p {
+    max-inline-size: none;
   }
 }
 
@@ -320,7 +324,7 @@ footer {
   }
 
   header h1 {
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-5xl);
   }
 
   header p {
@@ -350,7 +354,7 @@ footer {
   }
 
   header h1 {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-4xl);
   }
 
   .content-area {
