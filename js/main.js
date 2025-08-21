@@ -7,6 +7,13 @@ import {
 import { createSelectMenu } from './ui/selectMenu.js';
 import { createContentArea, renderMethodContent } from './ui/contentArea.js';
 import { renderDiagramWithFallback } from './ui/diagramRenderer.js';
+import { CONFIG } from './config/constants.js';
+
+function getRandomMethod() {
+  const methods = Object.values(CONFIG.SET_METHODS);
+  const randomIndex = Math.floor(Math.random() * methods.length);
+  return methods[randomIndex];
+}
 
 function initializeApp() {
   const data = getSetExamplesData();
@@ -29,6 +36,10 @@ function initializeApp() {
     const hash = extractHashFromUrl();
     if (hash && data[hash]) {
       renderMethod(hash);
+    } else {
+      // if no valid hash, randomly select a method
+      const randomMethod = getRandomMethod();
+      renderMethod(randomMethod);
     }
   }
 

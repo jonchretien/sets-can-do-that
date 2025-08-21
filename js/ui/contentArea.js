@@ -3,7 +3,6 @@ import { createElement } from '../utils/domUtils.js';
 export function createContentArea() {
   return createElement('div', {
     class: 'content-area',
-    textContent: 'Placeholder content area',
   });
 }
 
