@@ -45,11 +45,20 @@ function createSymmetricDifferenceDiagram() {
 }
 
 function createUnionDiagram() {
+  // return `
+  //   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="union diagram">
+  //     <rect width="100%" height="100%" fill="#fff"/>
+  //     <circle cx="160" cy="150" r="80" fill="#111" fill-opacity="0.22" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+  //     <circle cx="240" cy="150" r="80" fill="#111" fill-opacity="0.22" stroke="#111" stroke-width="2"/>
+  //   </svg>`;
   return `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="union diagram">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" xml:space="preserve">
       <rect width="100%" height="100%" fill="#fff"/>
-      <circle cx="160" cy="150" r="80" fill="#111" fill-opacity="0.22" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
-      <circle cx="240" cy="150" r="80" fill="#111" fill-opacity="0.22" stroke="#111" stroke-width="2"/>
+      <path d="M185 30c-12.75 0-24.7 3.43-35 9.39A69.667 69.667 0 0 0 115 30c-38.66 0-70 31.34-70 70s31.34 70 70 70c12.75 0 24.7-3.43 35-9.39a69.667 69.667 0 0 0 35 9.39c38.66 0 70-31.34 70-70s-31.34-70-70-70z" style="fill:#ea9930"/>
+      <circle cx="115" cy="100" r="70" fill-opacity="0.06" stroke="#999" stroke-width="2"/>
+      <circle cx="185" cy="100" r="70" fill-opacity="0.06" stroke="#999" stroke-width="2"/>
+      <text transform="translate(99.37 50.4)">A</text>
+      <text transform="translate(190.014 50.4)">B</text>
     </svg>`;
 }
 
