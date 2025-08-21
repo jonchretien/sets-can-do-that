@@ -246,6 +246,26 @@ select option {
   font-weight: 500;
 }
 
+ /* Syntax highlighting for specific keywords */
+.keyword {
+  color: blue;
+  font-weight: bold;
+}
+
+.string {
+  color: green;
+}
+
+.method {
+  color: purple;
+  font-weight: bold;
+}
+
+.boolean {
+  color: #ff4834;
+  font-weight: bold;
+}
+
 /* Footer */
 footer {
   border-block-start: 1px solid var(--color-border);
