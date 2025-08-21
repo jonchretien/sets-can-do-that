@@ -9,7 +9,7 @@ export function createContentArea() {
 
 export function renderMethodContent(methodName, methodData) {
   return `
-    <h2>${methodName}</h2>
+    <h2>${methodName} ${methodData.emoji}</h2>
     <p>${methodData.description}</p>
     <pre><code>${methodData.code}</code></pre>
     <pre><code>${methodData.output}</code></pre>

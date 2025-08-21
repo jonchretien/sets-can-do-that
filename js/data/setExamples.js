@@ -8,6 +8,7 @@ const setB = new Set(['Cookies and Cream','Neapolitan','Pistachio','Rocky Road',
 setA.difference(setB);`,
       description:
         'Which ice cream flavors are in the first set, but not in the second one?',
+      emoji: '🍦',
       image: 'set_illustrations/difference.jpeg',
       output: "Set(2) {'Chocolate', 'Strawberry'}",
     },
@@ -16,6 +17,7 @@ setA.difference(setB);`,
 const setB = new Set(['BMW','Honda','Kia','Ford','Chevrolet']);
 setA.intersection(setB);`,
       description: 'Which cars are in both sets?',
+      emoji: '🚗',
       image: 'set_illustrations/intersection.jpeg',
       output: "Set(3) {'Honda','Ford','Chevrolet'}",
     },
@@ -25,6 +27,7 @@ const setB = new Set(['Panthers','Tigers','Wolves','Hawks','Eagles']);
 setA.isDisjointFrom(setB);`,
       description:
         'Check if the first set has no NFL mascots in common with the second set.',
+      emoji: '🏈',
       image: 'set_illustrations/isDisjointFrom.jpeg',
       output: 'false',
     },
@@ -34,6 +37,7 @@ const setB = new Set(['Superman','Batman','Wonder Woman','Flash','Green Lantern'
 setA.isSubsetOf(setB);`,
       description:
         'Check if all superheroes in the first set are also in the other set.',
+      emoji: '🦸🏽‍♀️',
       image: 'set_illustrations/isSubsetOf.jpeg',
       output: 'true',
     },
@@ -43,6 +47,7 @@ const setB = new Set(['Acadia','Yosemite','Glacier','Rocky Mountain','Zion']);
 setA.isSupersetOf(setB);`,
       description:
         'Check if all national parks in the second set are also in the first set.',
+      emoji: '🏞️',
       image: 'set_illustrations/isSupersetOf.jpeg',
       output: 'false',
     },
@@ -51,6 +56,7 @@ setA.isSupersetOf(setB);`,
 const setB = new Set(['Herbie Hancock','John Coltrane','Wayne Shorter','Ornette Coleman','Charles Mingus']);
 setA.symmetricDifference(setB);`,
       description: 'Which jazz musicians are in either set, but not in both?',
+      emoji: '🎷',
       image: 'set_illustrations/symmetricDifference.jpeg',
       output:
         "Set(5) {'Miles Davis','Thelonious Monk','Herbie Hancock','Wayne Shorter','Ornette Coleman'}",
@@ -60,6 +66,7 @@ setA.symmetricDifference(setB);`,
 const setB = new Set(['Dunk','Air Max','Air Force 1','React','Cortez']);
 setA.union(setB);`,
       description: 'Which Nike sneakers are in either or both of the sets?',
+      emoji: '👟',
       image: 'set_illustrations/union.jpeg',
       output:
         "Set(7) {'Air Jordan','Air Max','Blazer','Cortez','Dunk','Air Force 1','React'}",
