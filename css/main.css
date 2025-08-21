@@ -238,6 +238,7 @@ select option {
   overflow-x: auto;
   padding-block: var(--spacing-lg);
   padding-inline: var(--spacing-lg);
+  white-space: pre-wrap;
 }
 
 .content-area code {
