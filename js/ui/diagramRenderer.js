@@ -4,7 +4,14 @@ import { createVennSVG } from '../svg/vennDiagram.js';
 import { CONFIG } from '../config/constants.js';
 
 export function renderDiagramWithFallback(wrapper, methodName, imageSrc) {
+  if (!wrapper) {
+    console.error('No wrapper element provided for diagram');
+    return;
+  }
+
   wrapper.innerHTML = '';
+
+  // try to load the image first
   const img = createElement('img', {
     alt: `${methodName} diagram`,
     src: imageSrc,
@@ -14,7 +21,10 @@ export function renderDiagramWithFallback(wrapper, methodName, imageSrc) {
   img.onerror = function () {
     const strategy = getDiagramStrategy(methodName);
     if (strategy) {
-      wrapper.innerHTML = createVennSVG(CONFIG, { ...strategy(), methodName });
+      const svgContent = createVennSVG(CONFIG, { ...strategy(), methodName });
+      wrapper.innerHTML = svgContent;
+    } else {
+      console.error('No diagram strategy found for:', methodName);
     }
   };
 

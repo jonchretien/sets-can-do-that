@@ -9,11 +9,11 @@ export const CONFIG = {
     UNION: 'union',
   },
   SVG: {
-    WIDTH: 320,
-    HEIGHT: 200,
-    CENTER_Y: 100,
-    RADIUS: 70,
-    LEFT_CIRCLE_X: 130,
-    RIGHT_CIRCLE_X: 190,
+    WIDTH: 400,
+    HEIGHT: 300,
+    CENTER_Y: 150,
+    RADIUS: 80,
+    LEFT_CIRCLE_X: 160,
+    RIGHT_CIRCLE_X: 240,
   },
 };

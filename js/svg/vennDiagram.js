@@ -17,7 +17,7 @@ export function createVennSVG(config, highlights) {
   );
 
   return `
-    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${highlights.methodName} diagram">
+    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${highlights.methodName} diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
       <rect width="100%" height="100%" fill="#fff"/>
       ${baseCircles}
       ${overlayPaths}
@@ -26,8 +26,8 @@ export function createVennSVG(config, highlights) {
 
 function createBaseCircles(leftX, rightX, centerY, radius) {
   return `
-    <circle cx="${leftX}" cy="${centerY}" r="${radius}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4"/>
-    <circle cx="${rightX}" cy="${centerY}" r="${radius}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4"/>
+    <circle cx="${leftX}" cy="${centerY}" r="${radius}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+    <circle cx="${rightX}" cy="${centerY}" r="${radius}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
   `;
 }
 

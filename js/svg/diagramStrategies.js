@@ -32,14 +32,14 @@ function createUnionStrategy() {
 
 function createDisjointDiagram() {
   const { WIDTH, HEIGHT, CENTER_Y, RADIUS } = CONFIG.SVG;
-  const leftX = 110;
+  const leftX = 160;
   const rightX = 240;
 
   return `
-    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Disjoint sets diagram">
+    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Disjoint sets diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
       <rect width="100%" height="100%" fill="#fff"/>
-      <circle cx="${leftX}" cy="${CENTER_Y}" r="${RADIUS}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4"/>
-      <circle cx="${rightX}" cy="${CENTER_Y}" r="${RADIUS}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4"/>
+      <circle cx="${leftX}" cy="${CENTER_Y}" r="${RADIUS}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="${rightX}" cy="${CENTER_Y}" r="${RADIUS}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
     </svg>`;
 }
 
@@ -47,7 +47,7 @@ function createSubsetDiagram() {
   const { WIDTH, HEIGHT } = CONFIG.SVG;
 
   return `
-    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
       <rect width="400" height="300" fill="#2a2a2a" stroke="#444" stroke-width="2" rx="10"/>
       <circle cx="200" cy="150" r="80" fill="none" stroke="#666" stroke-width="2"/>
       <circle cx="200" cy="150" r="50" fill="none" stroke="#666" stroke-width="2"/>
@@ -64,9 +64,9 @@ function createSupersetDiagram() {
   const rightX = 170;
 
   return `
-    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Superset diagram">
+    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Superset diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
       <rect width="100%" height="100%" fill="#fff"/>
-      <circle cx="${leftX}" cy="${CENTER_Y}" r="${bigRadius}" fill="#111" fill-opacity="0.18" stroke="#111" stroke-opacity="0.4"/>
-      <circle cx="${rightX}" cy="${CENTER_Y}" r="${smallRadius}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4"/>
+      <circle cx="${leftX}" cy="${CENTER_Y}" r="${bigRadius}" fill="#111" fill-opacity="0.18" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="${rightX}" cy="${CENTER_Y}" r="${smallRadius}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
     </svg>`;
 }

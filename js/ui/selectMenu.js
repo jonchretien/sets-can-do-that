@@ -5,7 +5,7 @@ export function createSelectMenu(onChange) {
   const select = createElement('select');
   select.appendChild(
     createElement('option', {
-      textContent: 'Select a composition method',
+      textContent: 'Pick a method',
       disabled: true,
       selected: true,
     })
