@@ -64,10 +64,10 @@ function createUnionDiagram() {
 
 function createDisjointDiagram() {
   return `
-    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="disjoint sets diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+    <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="disjoint sets diagram">
       <rect width="100%" height="100%" fill="#fff"/>
-      <circle cx="160" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
-      <circle cx="240" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="90" cy="100" r="50" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="210" cy="100" r="50" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
     </svg>`;
 }
 
