@@ -2,11 +2,10 @@ import { CONFIG } from '../config/constants.js';
 
 export function getDiagramStrategy(methodName) {
   const strategies = {
-    [CONFIG.SET_METHODS.DIFFERENCE]: createDifferenceStrategy,
-    [CONFIG.SET_METHODS.INTERSECTION]: createIntersectionStrategy,
-    [CONFIG.SET_METHODS.SYMMETRIC_DIFFERENCE]:
-      createSymmetricDifferenceStrategy,
-    [CONFIG.SET_METHODS.UNION]: createUnionStrategy,
+    [CONFIG.SET_METHODS.DIFFERENCE]: createDifferenceDiagram,
+    [CONFIG.SET_METHODS.INTERSECTION]: createIntersectionDiagram,
+    [CONFIG.SET_METHODS.SYMMETRIC_DIFFERENCE]: createSymmetricDifferenceDiagram,
+    [CONFIG.SET_METHODS.UNION]: createUnionDiagram,
     [CONFIG.SET_METHODS.IS_DISJOINT_FROM]: createDisjointDiagram,
     [CONFIG.SET_METHODS.IS_SUBSET_OF]: createSubsetDiagram,
     [CONFIG.SET_METHODS.IS_SUPERSET_OF]: createSupersetDiagram,
@@ -14,59 +13,78 @@ export function getDiagramStrategy(methodName) {
   return strategies[methodName];
 }
 
-function createDifferenceStrategy() {
-  return { left: true, middle: false, right: false };
+function createDifferenceDiagram() {
+  return `
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="difference diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+      <rect width="100%" height="100%" fill="#fff"/>
+      <circle cx="160" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="240" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <path d="M 80,150
+    A 80,80 0 1,1 200,219.2820323027551
+    A 80,80 0 0,0 200,80.7179676972449
+    A 80,80 0 1,1 80,150 Z" fill="#111" fill-opacity="0.22"/>
+    </svg>`;
 }
 
-function createIntersectionStrategy() {
-  return { left: false, middle: true, right: false };
+function createIntersectionDiagram() {
+  return `
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="intersection diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+      <rect width="100%" height="100%" fill="#fff"/>
+      <circle cx="160" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="240" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <ellipse cx="200" cy="150" rx="69.2820323027551" ry="64" fill="#111" fill-opacity="0.22"/>
+    </svg>`;
 }
 
-function createSymmetricDifferenceStrategy() {
-  return { left: true, middle: false, right: true };
+function createSymmetricDifferenceDiagram() {
+  return `
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="symmetric difference diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+      <rect width="100%" height="100%" fill="#fff"/>
+      <circle cx="160" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="240" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <path d="M 80,150
+    A 80,80 0 1,1 200,219.2820323027551
+    A 80,80 0 0,0 200,80.7179676972449
+    A 80,80 0 1,1 80,150 Z" fill="#111" fill-opacity="0.22"/>
+      <path d="M 320,150
+    A 80,80 0 1,1 200,219.2820323027551
+    A 80,80 0 0,0 200,80.7179676972449
+    A 80,80 0 1,1 320,150 Z" fill="#111" fill-opacity="0.22"/>
+    </svg>`;
 }
 
-function createUnionStrategy() {
-  return { left: true, middle: true, right: true };
+function createUnionDiagram() {
+  return `
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="union diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+      <rect width="100%" height="100%" fill="#fff"/>
+      <circle cx="160" cy="150" r="80" fill="#111" fill-opacity="0.22" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="240" cy="150" r="80" fill="#111" fill-opacity="0.22" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+    </svg>`;
 }
 
 function createDisjointDiagram() {
-  const { WIDTH, HEIGHT, CENTER_Y, RADIUS } = CONFIG.SVG;
-  const leftX = 160;
-  const rightX = 240;
-
   return `
-    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Disjoint sets diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="disjoint sets diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
       <rect width="100%" height="100%" fill="#fff"/>
-      <circle cx="${leftX}" cy="${CENTER_Y}" r="${RADIUS}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
-      <circle cx="${rightX}" cy="${CENTER_Y}" r="${RADIUS}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="160" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="240" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
     </svg>`;
 }
 
 function createSubsetDiagram() {
-  const { WIDTH, HEIGHT } = CONFIG.SVG;
-
   return `
-    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
-      <rect width="400" height="300" fill="#2a2a2a" stroke="#444" stroke-width="2" rx="10"/>
-      <circle cx="200" cy="150" r="80" fill="none" stroke="#666" stroke-width="2"/>
-      <circle cx="200" cy="150" r="50" fill="none" stroke="#666" stroke-width="2"/>
-      <text x="200" y="110" text-anchor="middle" fill="#ccc" font-family="Arial, sans-serif" font-size="18" font-weight="bold">A</text>
-      <text x="200" y="80" text-anchor="middle" fill="#ccc" font-family="Arial, sans-serif" font-size="18" font-weight="bold">B</text>
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="subset diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+      <rect width="100%" height="100%" fill="#fff"/>
+      <circle cx="200" cy="150" r="80" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="200" cy="150" r="50" fill="#111" fill-opacity="0.22" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
     </svg>`;
 }
 
 function createSupersetDiagram() {
-  const { WIDTH, HEIGHT, CENTER_Y } = CONFIG.SVG;
-  const bigRadius = 85;
-  const smallRadius = 55;
-  const leftX = 150;
-  const rightX = 170;
-
   return `
-    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Superset diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="superset diagram" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
       <rect width="100%" height="100%" fill="#fff"/>
-      <circle cx="${leftX}" cy="${CENTER_Y}" r="${bigRadius}" fill="#111" fill-opacity="0.18" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
-      <circle cx="${rightX}" cy="${CENTER_Y}" r="${smallRadius}" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="200" cy="150" r="85" fill="#111" fill-opacity="0.22" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
+      <circle cx="200" cy="150" r="55" fill="#000" fill-opacity="0.06" stroke="#111" stroke-opacity="0.4" stroke-width="2"/>
     </svg>`;
 }

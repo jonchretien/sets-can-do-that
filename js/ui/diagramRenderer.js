@@ -1,7 +1,5 @@
 import { createElement } from '../utils/domUtils.js';
 import { getDiagramStrategy } from '../svg/diagramStrategies.js';
-import { createVennSVG } from '../svg/vennDiagram.js';
-import { CONFIG } from '../config/constants.js';
 
 export function renderDiagramWithFallback(wrapper, methodName, imageSrc) {
   if (!wrapper) {
@@ -19,9 +17,9 @@ export function renderDiagramWithFallback(wrapper, methodName, imageSrc) {
   });
 
   img.onerror = function () {
-    const strategy = getDiagramStrategy(methodName);
-    if (strategy) {
-      const svgContent = createVennSVG(CONFIG, { ...strategy(), methodName });
+    const createDiagram = getDiagramStrategy(methodName);
+    if (createDiagram) {
+      const svgContent = createDiagram();
       wrapper.innerHTML = svgContent;
     } else {
       console.error('No diagram strategy found for:', methodName);
