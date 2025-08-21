@@ -2,7 +2,7 @@ import { CONFIG } from '../config/constants.js';
 import { createElement } from '../utils/domUtils.js';
 
 export function createSelectMenu(onChange) {
-  const select = createElement('select');
+  const select = createElement('select', { class: 'select-menu' });
   select.appendChild(
     createElement('option', {
       textContent: 'Pick a method',

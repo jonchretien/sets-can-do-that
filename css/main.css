@@ -86,7 +86,7 @@ body {
 }
 
 /* Header - Asymmetrical Grid Layout */
-header {
+.header {
   align-items: end;
   display: grid;
   gap: var(--spacing-sm);
@@ -101,7 +101,7 @@ header {
   padding-inline-end: 0;
 }
 
-header h1 {
+.header__title {
   color: var(--color-text);
   font-size: var(--font-size-5xl);
   font-weight: 600;
@@ -111,7 +111,7 @@ header h1 {
   max-inline-size: 16ch;
 }
 
-header p {
+.header__subtitle {
   color: var(--color-text-muted);
   font-size: var(--font-size-xl);
   font-weight: 300;
@@ -131,7 +131,7 @@ header p {
 }
 
 /* Select Menu */
-select {
+.select-menu {
   appearance: none;
   background-color: var(--color-surface);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
@@ -151,17 +151,17 @@ select {
   inline-size: 100%;
 }
 
-select:hover {
+.select-menu:hover {
   border-color: var(--color-primary);
 }
 
-select:focus {
+.select-menu:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
   outline: none;
 }
 
-select option {
+.select-menu option {
   font-size: var(--font-size-base);
   padding-block: var(--spacing-sm);
   padding-inline: var(--spacing-sm);
@@ -177,7 +177,7 @@ select option {
   padding-inline: var(--spacing-xl);
 }
 
-.content-area h2 {
+.content-area__title {
   color: var(--color-secondary);
   font-size: var(--font-size-4xl);
   font-weight: 600;
@@ -186,7 +186,7 @@ select option {
   margin-block-end: var(--spacing-lg);
 }
 
-.content-area p {
+.content-area__description {
   color: var(--color-text);
   font-size: var(--font-size-lg);
   line-height: 1.7;
@@ -226,7 +226,7 @@ select option {
 }
 
 /* Code Blocks */
-.content-area pre {
+.code-block {
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: 0;
@@ -241,7 +241,7 @@ select option {
   white-space: pre-wrap;
 }
 
-.content-area code {
+.code-inline {
   color: var(--color-secondary);
   font-weight: 500;
 }
@@ -267,7 +267,7 @@ select option {
 }
 
 /* Footer */
-footer {
+.footer {
   border-block-start: 1px solid var(--color-border);
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
@@ -291,18 +291,18 @@ footer {
     padding-inline: var(--spacing-sm);
   }
 
-  header {
+  .header {
     padding-block-start: var(--spacing-xl);
     padding-block-end: 0;
     padding-inline-start: 0;
     padding-inline-end: 0;
   }
 
-  header h1 {
+  .header__title {
     font-size: var(--font-size-5xl);
   }
 
-  header p {
+  .header__subtitle {
     max-inline-size: none;
   }
 }
@@ -314,7 +314,7 @@ footer {
     --spacing-2xl: 3rem;
   }
 
-  header {
+  .header {
     gap: var(--spacing-md);
     grid-template-areas:
       "title"
@@ -323,11 +323,7 @@ footer {
     text-align: left;
   }
 
-  header h1 {
-    font-size: var(--font-size-5xl);
-  }
-
-  header p {
+  .header__subtitle {
     font-size: var(--font-size-lg);
   }
 
@@ -336,11 +332,11 @@ footer {
     padding-inline: var(--spacing-lg);
   }
 
-  .content-area h2 {
+  .content-area__title {
     font-size: var(--font-size-3xl);
   }
 
-  select {
+  .select-menu {
     font-size: var(--font-size-base);
     padding-block: var(--spacing-sm);
     padding-inline: var(--spacing-md);
@@ -353,7 +349,7 @@ footer {
     padding-inline: var(--spacing-xs);
   }
 
-  header h1 {
+  .header__title {
     font-size: var(--font-size-4xl);
   }
 
@@ -362,7 +358,7 @@ footer {
     padding-inline: var(--spacing-md);
   }
 
-  .content-area h2 {
+  .content-area__title {
     font-size: var(--font-size-2xl);
   }
 }
@@ -380,7 +376,7 @@ footer {
     box-shadow: none;
   }
 
-  select {
+  .select-menu {
     display: none;
   }
 }
