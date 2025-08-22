@@ -16,5 +16,4 @@ function initializeApp() {
   setupNavigation(data, renderMethod);
 }
 
-// start the application
 document.addEventListener('DOMContentLoaded', initializeApp);

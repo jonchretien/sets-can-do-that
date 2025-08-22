@@ -1,4 +1,4 @@
-export const CONFIG = {
+export const CONFIG = Object.freeze({
   SET_METHODS: {
     DIFFERENCE: 'difference',
     INTERSECTION: 'intersection',
@@ -9,11 +9,7 @@ export const CONFIG = {
     UNION: 'union',
   },
   SVG: {
-    WIDTH: 400,
-    HEIGHT: 300,
-    CENTER_Y: 150,
-    RADIUS: 80,
-    LEFT_CIRCLE_X: 160,
-    RIGHT_CIRCLE_X: 240,
+    WIDTH: 300,
+    HEIGHT: 200,
   },
-};
+});
