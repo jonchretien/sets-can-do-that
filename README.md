@@ -14,7 +14,40 @@ I had mainly used Sets in JavaScript when I needed to make sure I had an object 
 | [symmetricDifference](#symmetricDifference-) | Elements in either set but not in both | `Set` |
 | [union](#union-) | All elements from both sets | `Set` |
 
-## Let’s Dive In
+## Development
+
+### Local Development
+```bash
+npm install
+npm run dev
+```
+
+### Building for Production
+```bash
+npm run build
+npm run preview
+```
+
+### Deployment
+This site is automatically deployed to GitHub Pages via GitHub Actions. The deployment workflow:
+
+1. Triggers on pushes to the `main` branch
+2. Builds the project using Vite
+3. Deploys the built files to the `gh-pages` branch
+
+**Manual Deployment:**
+```bash
+npm run deploy
+```
+
+**Site URL:** https://jonchretien.github.io/sets-can-do-that
+
+## Inspiration
+
+- [Does it mutate](https://doesitmutate.xyz)
+- [JavaScript Array Explorer](https://codepen.io/sdras/full/gogVRX/)
+
+## Static Examples
 
 ### difference 🍦
 
@@ -217,36 +250,3 @@ Output
 ```javascript
 Set(7) { 'Air Jordan', 'Air Max', 'Blazer', 'Cortez', 'Dunk', 'Air Force 1', 'React' }
 ```
-
-## Development
-
-### Local Development
-```bash
-npm install
-npm run dev
-```
-
-### Building for Production
-```bash
-npm run build
-npm run preview
-```
-
-### Deployment
-This site is automatically deployed to GitHub Pages via GitHub Actions. The deployment workflow:
-
-1. Triggers on pushes to the `main` branch
-2. Builds the project using Vite
-3. Deploys the built files to the `gh-pages` branch
-
-**Manual Deployment:**
-```bash
-npm run deploy
-```
-
-**Site URL:** https://jonchretien.github.io/sets-can-do-that
-
-## Inspiration
-
-- [Does it mutate](https://doesitmutate.xyz)
-- [JavaScript Array Explorer](https://codepen.io/sdras/full/gogVRX/)
