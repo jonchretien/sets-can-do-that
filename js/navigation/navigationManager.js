@@ -19,7 +19,7 @@ function createHashNavigationHandler(data, renderMethod) {
     } else {
       // if on page load or no valid hash, randomly select a composition method
       const randomMethod = getRandomMethod();
-      renderMethod.renderMethod(randomMethod);
+      renderMethod(randomMethod);
     }
   };
 }
