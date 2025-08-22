@@ -15,7 +15,7 @@ export function createRenderMethod(data, contentElement) {
     contentElement.innerHTML = renderMethodContent(methodName, methodData);
 
     const diagramElement = contentElement.querySelector('.diagram');
-    renderDiagram(diagramElement, methodName, methodData.image);
+    renderDiagram(diagramElement, methodName);
 
     updateUrlHash(methodName);
   }

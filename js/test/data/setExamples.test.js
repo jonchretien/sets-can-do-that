@@ -26,13 +26,11 @@ describe('setExamples', () => {
         expect(example).toHaveProperty('code');
         expect(example).toHaveProperty('description');
         expect(example).toHaveProperty('emoji');
-        expect(example).toHaveProperty('image');
         expect(example).toHaveProperty('output');
 
         expect(typeof example.code).toBe('string');
         expect(typeof example.description).toBe('string');
         expect(typeof example.emoji).toBe('string');
-        expect(typeof example.image).toBe('string');
         expect(typeof example.output).toBe('string');
       });
     });
@@ -44,7 +42,6 @@ describe('setExamples', () => {
         expect(example.code.length).toBeGreaterThan(0);
         expect(example.description.length).toBeGreaterThan(0);
         expect(example.emoji.length).toBeGreaterThan(0);
-        expect(example.image.length).toBeGreaterThan(0);
         expect(example.output.length).toBeGreaterThan(0);
       });
     });

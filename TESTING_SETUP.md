@@ -28,6 +28,9 @@ npm run test:coverage # Generate coverage report
 - **`js/test/data/setExamples.test.js`** - Tests for set examples data
 - **`js/test/utils/domUtils.test.js`** - Tests for DOM utility functions
 - **`js/test/ui/selectMenu.test.js`** - Tests for select menu component
+- **`js/test/ui/contentArea.test.js`** - Tests for content area component
+- **`js/test/ui/diagramRenderer.test.js`** - Tests for diagram renderer component
+- **`js/test/ui/renderMethodManager.test.js`** - Tests for render method manager
 - **`js/test/main.test.js`** - Tests for main application logic
 
 ### 5. **Documentation**
@@ -36,15 +39,20 @@ npm run test:coverage # Generate coverage report
 
 ## 📊 Current Test Coverage
 
-**37 tests passing** across 5 test files:
+**72 tests passing** across 8 test files:
 - ✅ **Config**: 100% coverage
 - ✅ **Data**: 100% coverage
 - ✅ **Utils**: 100% coverage
-- ✅ **UI (selectMenu)**: 100% coverage
+- ✅ **UI (all modules)**: 100% coverage
+  - `selectMenu.js` - 100% coverage
+  - `contentArea.js` - 100% coverage
+  - `diagramRenderer.js` - 100% coverage
+  - `renderMethodManager.js` - 100% coverage
 - ⚠️ **Main app**: 0% coverage (mocked for isolation)
-- ⚠️ **Other UI modules**: 0% coverage (not yet tested)
+- ⚠️ **Navigation module**: 0% coverage (not yet tested)
+- ⚠️ **SVG module**: 0% coverage (not yet tested)
 
-**Overall Coverage**: 40.52%
+**Overall Coverage**: 56.12% (up from 40.52%)
 
 ## 🚀 Next Steps
 
@@ -54,16 +62,13 @@ npm run test:coverage # Generate coverage report
 3. **Open test UI**: `npm run test:ui`
 
 ### Expand Testing (Recommended)
-1. **Add tests for remaining UI modules**:
-   - `contentArea.js`
-   - `diagramRenderer.js`
-   - `renderMethodManager.js`
+1. **Add tests for remaining modules**:
+   - `js/navigation/navigationManager.js` - Navigation logic
+   - `js/svg/diagramStrategies.js` - SVG diagram strategies
 
-2. **Add tests for navigation and SVG modules**:
-   - `navigationManager.js`
-   - `diagramStrategies.js`
+2. **Integration tests** for the complete application flow
 
-3. **Integration tests** for the complete application flow
+3. **Consider testing main.js** with proper mocking strategy
 
 ### Testing Best Practices
 - Write tests as you develop new features

@@ -9,7 +9,6 @@ setA.<span class="method">difference</span>(setB);`,
       description:
         'Which ice cream flavors are in the first set, but not in the second one?',
       emoji: '🍦',
-      image: 'set_illustrations/difference.jpeg',
       output: `<span class="set">Set</span>(2) {<span class="string">'Chocolate'</span>, <span class="string">'Strawberry'</span>}`,
     },
     [CONFIG.SET_METHODS.INTERSECTION]: {
@@ -18,7 +17,6 @@ setA.<span class="method">difference</span>(setB);`,
 setA.<span class="method">intersection</span>(setB);`,
       description: 'Which cars are in both sets?',
       emoji: '🚗',
-      image: 'set_illustrations/intersection.jpeg',
       output: `<span class="set">Set</span>(3) {<span class="string">'Honda'</span>, <span class="string">'Ford'</span>, <span class="string">'Chevrolet'</span>}`,
     },
     [CONFIG.SET_METHODS.IS_DISJOINT_FROM]: {
@@ -28,7 +26,6 @@ setA.<span class="method">isDisjointFrom</span>(setB);`,
       description:
         'Check if the first set has no NFL mascots in common with the second set.',
       emoji: '🏈',
-      image: 'set_illustrations/isDisjointFrom.jpeg',
       output: '<span class="boolean">false</span>',
     },
     [CONFIG.SET_METHODS.IS_SUBSET_OF]: {
@@ -38,7 +35,6 @@ setA.<span class="method">isSubsetOf</span>(setB);`,
       description:
         'Check if all superheroes in the first set are also in the other set.',
       emoji: '🦸🏽‍♀️',
-      image: 'set_illustrations/isSubsetOf.jpeg',
       output: '<span class="boolean">true</span>',
     },
     [CONFIG.SET_METHODS.IS_SUPERSET_OF]: {
@@ -48,7 +44,6 @@ setA.<span class="method">isSupersetOf</span>(setB);`,
       description:
         'Check if all national parks in the second set are also in the first set.',
       emoji: '🏞️',
-      image: 'set_illustrations/isSupersetOf.jpeg',
       output: '<span class="boolean">false</span>',
     },
     [CONFIG.SET_METHODS.SYMMETRIC_DIFFERENCE]: {
@@ -57,7 +52,6 @@ setA.<span class="method">isSupersetOf</span>(setB);`,
 setA.<span class="method">symmetricDifference</span>(setB);`,
       description: 'Which jazz musicians are in either set, but not in both?',
       emoji: '🎷',
-      image: 'set_illustrations/symmetricDifference.jpeg',
       output: `<span class="set">Set</span>(5) {<span class="string">'Miles Davis'</span>, <span class="string">'Thelonious Monk'</span>, <span class="string">'Herbie Hancock'</span>, <span class="string">'Wayne Shorter'</span>, <span class="string">'Ornette Coleman'</span>}`,
     },
     [CONFIG.SET_METHODS.UNION]: {
@@ -66,7 +60,6 @@ setA.<span class="method">symmetricDifference</span>(setB);`,
 setA.<span class="method">union</span>(setB);`,
       description: 'Which Nike sneakers are in either or both of the sets?',
       emoji: '👟',
-      image: 'set_illustrations/union.jpeg',
       output: `<span class="set">Set</span>(7) {<span class="string">'Air Jordan'</span>, <span class="string">'Air Max'</span>, <span class="string">'Blazer'</span>, <span class="string">'Cortez'</span>, <span class="string">'Dunk'</span>, <span class="string">'Air Force 1'</span>, <span class="string">'React'</span>}`,
     },
   };
