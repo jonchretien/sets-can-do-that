@@ -9,15 +9,3 @@ export function createElement(tag, attributes = {}) {
   });
   return element;
 }
-
-export function getCurrentYear() {
-  return new Date().getFullYear();
-}
-
-export function extractHashFromUrl() {
-  return window.location.hash.replace('#', '');
-}
-
-export function updateUrlHash(hash) {
-  window.location.hash = hash;
-}
