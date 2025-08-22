@@ -4,8 +4,8 @@ export function updateUrlHash(hash) {
   window.location.hash = hash;
 }
 
-function getRandomMethod() {
-  const methods = Object.values(CONFIG.SET_METHODS);
+function getRandomMethod(data) {
+  const methods = Object.keys(data);
   const randomIndex = Math.floor(Math.random() * methods.length);
   return methods[randomIndex];
 }
@@ -18,7 +18,7 @@ function createHashNavigationHandler(data, renderMethod) {
       renderMethod(hash);
     } else {
       // if on page load or no valid hash, randomly select a composition method
-      const randomMethod = getRandomMethod();
+      const randomMethod = getRandomMethod(data);
       renderMethod(randomMethod);
     }
   };
