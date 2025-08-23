@@ -215,14 +215,8 @@ body {
   outline-offset: 2px;
 }
 
-.content-area__description a {
-  color: var(--color-primary);
-  text-decoration: underline;
-}
-
-.content-area__description a:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+.content-area p {
+  margin-block-end: var(--spacing-sm);
 }
 
 /* Diagram Container */

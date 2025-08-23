@@ -64,13 +64,6 @@ describe('contentArea', () => {
       expect(result).toContain('Test description for the method');
     });
 
-    it('should include MDN link with correct method name', () => {
-      const result = renderMethodContent('intersection', mockMethodData);
-      expect(result).toContain(
-        'href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/intersection"'
-      );
-    });
-
     it('should include the code block', () => {
       const result = renderMethodContent('testMethod', mockMethodData);
       expect(result).toContain(
