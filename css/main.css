@@ -317,11 +317,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .shell {
-    padding-block: 0;
-    padding-inline: var(--spacing-sm);
-  }
-
   .header {
     padding-block-start: var(--spacing-xl);
     padding-block-end: 0;
