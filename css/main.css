@@ -85,6 +85,22 @@ body {
   padding-inline: var(--spacing-md);
 }
 
+/* Skip Link */
+.skip-link {
+  background: var(--color-text);
+  color: var(--color-surface);
+  left: 6px;
+  padding: 8px;
+  position: absolute;
+  text-decoration: none;
+  top: -40px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
 /* Header - Asymmetrical Grid Layout */
 .header {
   align-items: end;
@@ -359,11 +375,6 @@ body {
 }
 
 @media (max-width: 480px) {
-  .shell {
-    padding-block: 0;
-    padding-inline: var(--spacing-xs);
-  }
-
   .header__title {
     font-size: var(--font-size-4xl);
   }
@@ -396,17 +407,3 @@ body {
   }
 }
 
-.skip-link {
-  background: var(--color-text);
-  color: var(--color-surface);
-  left: 6px;
-  padding: 8px;
-  position: absolute;
-  text-decoration: none;
-  top: -40px;
-  z-index: 100;
-}
-
-.skip-link:focus {
-  top: 6px;
-}
