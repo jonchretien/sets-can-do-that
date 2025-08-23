@@ -356,6 +356,10 @@ a[rel~="noopener"][rel~="noreferrer"]::after {
   .footer {
     display: block;
   }
+
+  .footer p {
+    display: inline;
+  }
 }
 
 @media (max-width: 768px) {
