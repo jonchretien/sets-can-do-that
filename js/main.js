@@ -12,7 +12,7 @@ function initializeApp() {
 
   renderMethod.setSelectElement(selectElement);
   document.getElementById('app').append(selectElement, contentElement);
-  document.getElementById('copyright').textContent = new Date().getFullYear();
+  document.getElementById('year').textContent = new Date().getFullYear();
   setupNavigation(data, renderMethod);
 }
 
