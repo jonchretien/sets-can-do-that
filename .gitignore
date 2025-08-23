@@ -9,6 +9,7 @@ Thumbs.db
 # Folders #
 ######################
 
+.vscode/
 dist/
 node_modules/
 coverage/
