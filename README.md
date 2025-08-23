@@ -1,5 +1,7 @@
 # Sets Can Do That? 😮
 
+**Site URL:** https://jonchretien.github.io/sets-can-do-that
+
 I had mainly used Sets in JavaScript when I needed to make sure I had an object with unique values (ex: removing duplicate items from an Array). It wasn't until I stumbled on this video from [@syntaxfm](https://youtu.be/De6JOU9yaGM) that I found out about its [composition methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set#set_composition), which are really handy when you need to handle certain types of data manipulation. I made this resource to showcase how useful they can be when you move beyond the basics.
 
 ## Quick Reference
@@ -13,39 +15,6 @@ I had mainly used Sets in JavaScript when I needed to make sure I had an object 
 | [isSupersetOf](#isSupersetOf-) | Checks if all elements of the second set are in the first set | `Boolean` |
 | [symmetricDifference](#symmetricDifference-) | Elements in either set but not in both | `Set` |
 | [union](#union-) | All elements from both sets | `Set` |
-
-## Development
-
-### Local Development
-```bash
-npm install
-npm run dev
-```
-
-### Building for Production
-```bash
-npm run build
-npm run preview
-```
-
-### Deployment
-This site is automatically deployed to GitHub Pages via GitHub Actions. The deployment workflow:
-
-1. Triggers on pushes to the `main` branch
-2. Builds the project using Vite
-3. Deploys the built files to the `gh-pages` branch
-
-**Manual Deployment:**
-```bash
-npm run deploy
-```
-
-**Site URL:** https://jonchretien.github.io/sets-can-do-that
-
-## Inspiration
-
-- [Does it mutate](https://doesitmutate.xyz)
-- [JavaScript Array Explorer](https://codepen.io/sdras/full/gogVRX/)
 
 ## Static Examples
 
@@ -250,3 +219,34 @@ Output
 ```javascript
 Set(7) { 'Air Jordan', 'Air Max', 'Blazer', 'Cortez', 'Dunk', 'Air Force 1', 'React' }
 ```
+
+## Development
+
+### Local Development
+```bash
+npm install
+npm run dev
+```
+
+### Building for Production
+```bash
+npm run build
+npm run preview
+```
+
+### Deployment
+This site is automatically deployed to GitHub Pages via GitHub Actions. The deployment workflow:
+
+1. Triggers on pushes to the `main` branch
+2. Builds the project using Vite
+3. Deploys the built files to the `gh-pages` branch
+
+**Manual Deployment:**
+```bash
+npm run deploy
+```
+
+## Inspiration
+
+- [Does it mutate](https://doesitmutate.xyz)
+- [JavaScript Array Explorer](https://codepen.io/sdras/full/gogVRX/)
