@@ -68,6 +68,30 @@ body {
   :root { font-family: InterVariable, sans-serif; }
 }
 
+a:link,
+a:visited {
+  color: var(--color-text);
+  transition: 0.15s;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 0.15rem;
+  text-decoration-skip-ink: none;
+  text-decoration-color: var(--color-border);
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+a[target="_blank"]::after,
+a[rel~="noopener"][rel~="noreferrer"]::after {
+  color: var(--color-primary);
+  content: " ↗";
+  font-family: system-ui,-apple-system,sans-serif;
+  font-size: .9em;
+  font-style: normal;
+  font-weight: 900;
+}
+
 /* Grid System */
 .shell {
   display: grid;
