@@ -2,7 +2,11 @@ import { CONFIG } from '../config/constants.js';
 import { createElement } from '../utils/domUtils.js';
 
 export function createSelectMenu(onChange) {
-  const select = createElement('select', { class: 'select-menu' });
+  const select = createElement('select', {
+    'aria-label': 'Select a Set composition method to visualize',
+    class: 'select-menu',
+  });
+
   select.appendChild(
     createElement('option', {
       textContent: 'Pick a method',
@@ -21,5 +25,12 @@ export function createSelectMenu(onChange) {
   });
 
   select.addEventListener('change', (e) => onChange(e.target.value));
+  select.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      select.focus();
+    }
+  });
+
   return select;
 }

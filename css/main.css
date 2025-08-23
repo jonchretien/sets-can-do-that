@@ -194,6 +194,21 @@ body {
   max-inline-size: 65ch;
 }
 
+.content-area:focus-within {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.content-area__description a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.content-area__description a:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 /* Diagram Container */
 .diagram {
   align-items: center;
@@ -379,4 +394,19 @@ body {
   .select-menu {
     display: none;
   }
+}
+
+.skip-link {
+  background: var(--color-text);
+  color: var(--color-surface);
+  left: 6px;
+  padding: 8px;
+  position: absolute;
+  text-decoration: none;
+  top: -40px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 6px;
 }

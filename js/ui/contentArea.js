@@ -2,6 +2,8 @@ import { createElement } from '../utils/domUtils.js';
 
 export function createContentArea() {
   return createElement('div', {
+    'aria-live': 'polite',
+    'aria-atomic': 'true',
     class: 'content-area',
   });
 }

@@ -17,6 +17,12 @@ export function createRenderMethod(data, contentElement) {
     const diagramElement = contentElement.querySelector('.diagram');
     renderDiagram(diagramElement, methodName);
 
+    // focus management
+    const title = contentElement.querySelector('.content-area__title');
+    if (title) {
+      title.focus();
+    }
+
     updateUrlHash(methodName);
   }
 
