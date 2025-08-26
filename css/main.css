@@ -105,16 +105,17 @@ a[rel~="noopener"][rel~="noreferrer"]::after {
   margin-block: 0;
   margin-inline: auto;
   max-inline-size: var(--max-width);
-  min-block-size: 100vh;
   padding-block: 0;
   padding-inline: var(--spacing-md);
 }
 
 /* Skip Link */
-.skip-link {
+a.skip-link,
+a.skip-link:link,
+a.skip-link:visited {
   background: var(--color-text);
   color: var(--color-surface);
-  left: 6px;
+  left: -10000px;
   padding: 8px;
   position: absolute;
   text-decoration: none;
@@ -122,8 +123,15 @@ a[rel~="noopener"][rel~="noreferrer"]::after {
   z-index: 100;
 }
 
-.skip-link:focus {
-  top: 6px;
+a.skip-link:focus {
+  background: var(--color-text);
+  block-size: auto;
+  color: var(--color-surface);
+  display: block;
+  inline-size: auto;
+  left: 10px;
+  position: static;
+  top: 10px;
 }
 
 /* Header - Asymmetrical Grid Layout */
