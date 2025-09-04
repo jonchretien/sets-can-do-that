@@ -7,13 +7,13 @@ import { setupNavigation } from './navigation/navigationManager.js';
 function initializeApp() {
   const data = getSetExamplesData();
   const contentElement = createContentArea();
-  const renderMethod = createRenderMethod(data, contentElement);
-  const selectElement = createSelectMenu(renderMethod);
+  const { render, setSelectElement } = createRenderMethod(data, contentElement);
+  const selectElement = createSelectMenu(render);
 
-  renderMethod.setSelectElement(selectElement);
+  setSelectElement(selectElement);
   document.getElementById('app').append(selectElement, contentElement);
   document.getElementById('year').textContent = new Date().getFullYear();
-  setupNavigation(data, renderMethod);
+  setupNavigation(data, render);
 }
 
 document.addEventListener('DOMContentLoaded', initializeApp);

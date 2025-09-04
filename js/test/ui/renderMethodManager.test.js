@@ -52,7 +52,11 @@ describe('renderMethodManager', () => {
     mockRenderMethodContent.mockReturnValue(
       '<h2>Test</h2><div class="diagram"></div>'
     );
-    renderMethod = createRenderMethod(mockData, mockContentElement);
+    const { render, setSelectElement } = createRenderMethod(
+      mockData,
+      mockContentElement
+    );
+    renderMethod = { render, setSelectElement };
   });
 
   afterEach(() => {
@@ -60,18 +64,16 @@ describe('renderMethodManager', () => {
   });
 
   describe('createRenderMethod', () => {
-    it('should return a function', () => {
-      expect(typeof renderMethod).toBe('function');
-    });
-
-    it('should have setSelectElement method', () => {
+    it('should return an object with render and setSelectElement methods', () => {
+      expect(typeof renderMethod).toBe('object');
+      expect(typeof renderMethod.render).toBe('function');
       expect(typeof renderMethod.setSelectElement).toBe('function');
     });
   });
 
-  describe('renderMethod function', () => {
+  describe('renderMethod.render function', () => {
     it('should call renderMethodContent with correct parameters', () => {
-      renderMethod('difference');
+      renderMethod.render('difference');
 
       expect(mockRenderMethodContent).toHaveBeenCalledWith(
         'difference',
@@ -80,7 +82,7 @@ describe('renderMethodManager', () => {
     });
 
     it('should update content element innerHTML', () => {
-      renderMethod('difference');
+      renderMethod.render('difference');
 
       expect(mockContentElement.innerHTML).toBe(
         '<h2>Test</h2><div class="diagram"></div>'
@@ -88,7 +90,7 @@ describe('renderMethodManager', () => {
     });
 
     it('should find and render diagram', () => {
-      renderMethod('difference');
+      renderMethod.render('difference');
 
       expect(mockRenderDiagram).toHaveBeenCalledWith(
         expect.any(HTMLElement),
@@ -97,7 +99,7 @@ describe('renderMethodManager', () => {
     });
 
     it('should call updateUrlHash with method name', () => {
-      renderMethod('intersection');
+      renderMethod.render('intersection');
 
       expect(mockUpdateUrlHash).toHaveBeenCalledWith('intersection');
     });
@@ -117,13 +119,13 @@ describe('renderMethodManager', () => {
       mockSelectElement.value = 'previous';
       renderMethod.setSelectElement(mockSelectElement);
 
-      renderMethod('intersection');
+      renderMethod.render('intersection');
 
       expect(mockSelectElement.value).toBe('intersection');
     });
 
     it('should not update select element when selectElement is not set', () => {
-      renderMethod('difference');
+      renderMethod.render('difference');
 
       // should still work without errors
       expect(mockRenderMethodContent).toHaveBeenCalledWith(
@@ -133,7 +135,7 @@ describe('renderMethodManager', () => {
     });
 
     it('should handle different method names', () => {
-      renderMethod('intersection');
+      renderMethod.render('intersection');
 
       expect(mockRenderMethodContent).toHaveBeenCalledWith(
         'intersection',
@@ -146,9 +148,9 @@ describe('renderMethodManager', () => {
     });
   });
 
-  describe('renderMethod with invalid data', () => {
+  describe('renderMethod.render with invalid data', () => {
     it('should handle non-existent method gracefully', () => {
-      renderMethod('nonexistent');
+      renderMethod.render('nonexistent');
 
       // should not call any rendering functions
       expect(mockRenderMethodContent).not.toHaveBeenCalled();
@@ -157,7 +159,7 @@ describe('renderMethodManager', () => {
     });
 
     it('should handle undefined method gracefully', () => {
-      renderMethod(undefined);
+      renderMethod.render(undefined);
 
       expect(mockRenderMethodContent).not.toHaveBeenCalled();
       expect(mockRenderDiagram).not.toHaveBeenCalled();
@@ -165,7 +167,7 @@ describe('renderMethodManager', () => {
     });
 
     it('should handle null method gracefully', () => {
-      renderMethod(null);
+      renderMethod.render(null);
 
       expect(mockRenderMethodContent).not.toHaveBeenCalled();
       expect(mockRenderDiagram).not.toHaveBeenCalled();
@@ -189,7 +191,7 @@ describe('renderMethodManager', () => {
       renderMethod.setSelectElement(mockSelect);
 
       // when we render it should update the select value
-      renderMethod('intersection');
+      renderMethod.render('intersection');
       expect(mockSelect.value).toBe('intersection');
     });
 
@@ -209,11 +211,11 @@ describe('renderMethodManager', () => {
       mockSelect2.appendChild(option2.cloneNode(true));
 
       renderMethod.setSelectElement(mockSelect1);
-      renderMethod('difference');
+      renderMethod.render('difference');
       expect(mockSelect1.value).toBe('difference');
 
       renderMethod.setSelectElement(mockSelect2);
-      renderMethod('intersection');
+      renderMethod.render('intersection');
       expect(mockSelect2.value).toBe('intersection');
       expect(mockSelect1.value).toBe('difference'); // should not change
     });
@@ -221,7 +223,7 @@ describe('renderMethodManager', () => {
     it('should handle null select element', () => {
       renderMethod.setSelectElement(null);
 
-      expect(() => renderMethod('difference')).not.toThrow();
+      expect(() => renderMethod.render('difference')).not.toThrow();
     });
   });
 
@@ -231,9 +233,14 @@ describe('renderMethodManager', () => {
       realContentElement.innerHTML = '<div class="diagram"></div>';
       document.body.appendChild(realContentElement);
 
-      const realRenderMethod = createRenderMethod(mockData, realContentElement);
+      const { render: realRender, setSelectElement: realSetSelectElement } =
+        createRenderMethod(mockData, realContentElement);
+      const realRenderMethod = {
+        render: realRender,
+        setSelectElement: realSetSelectElement,
+      };
 
-      realRenderMethod('difference');
+      realRenderMethod.render('difference');
 
       expect(realContentElement.innerHTML).toBe(
         '<h2>Test</h2><div class="diagram"></div>'
@@ -244,7 +251,7 @@ describe('renderMethodManager', () => {
       mockContentElement.setAttribute('data-test', 'content-area');
       mockContentElement.setAttribute('class', 'content-area test');
 
-      renderMethod('difference');
+      renderMethod.render('difference');
 
       expect(mockContentElement.getAttribute('data-test')).toBe('content-area');
       expect(mockContentElement.getAttribute('class')).toBe(
@@ -255,19 +262,19 @@ describe('renderMethodManager', () => {
 
   describe('multiple render calls', () => {
     it('should handle multiple consecutive renders', () => {
-      renderMethod('difference');
+      renderMethod.render('difference');
       expect(mockRenderMethodContent).toHaveBeenCalledWith(
         'difference',
         mockData.difference
       );
 
-      renderMethod('intersection');
+      renderMethod.render('intersection');
       expect(mockRenderMethodContent).toHaveBeenCalledWith(
         'intersection',
         mockData.intersection
       );
 
-      renderMethod('difference');
+      renderMethod.render('difference');
       expect(mockRenderMethodContent).toHaveBeenCalledWith(
         'difference',
         mockData.difference
@@ -288,13 +295,13 @@ describe('renderMethodManager', () => {
 
       renderMethod.setSelectElement(mockSelect);
 
-      renderMethod('difference');
+      renderMethod.render('difference');
       expect(mockSelect.value).toBe('difference');
 
-      renderMethod('intersection');
+      renderMethod.render('intersection');
       expect(mockSelect.value).toBe('intersection');
 
-      renderMethod('difference');
+      renderMethod.render('difference');
       expect(mockSelect.value).toBe('difference');
     });
   });

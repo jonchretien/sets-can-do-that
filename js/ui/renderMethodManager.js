@@ -5,7 +5,7 @@ import { updateUrlHash } from '../navigation/navigationManager.js';
 export function createRenderMethod(data, contentElement) {
   let selectElement = null;
 
-  function renderMethod(methodName) {
+  function render(methodName) {
     const methodData = data[methodName];
     if (!methodData) return;
 
@@ -30,7 +30,8 @@ export function createRenderMethod(data, contentElement) {
     selectElement = element;
   }
 
-  renderMethod.setSelectElement = setSelectElement;
-
-  return renderMethod;
+  return {
+    render,
+    setSelectElement,
+  };
 }

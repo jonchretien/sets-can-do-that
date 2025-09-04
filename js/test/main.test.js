@@ -12,6 +12,7 @@ vi.mock('../ui/contentArea.js', () => ({
 
 vi.mock('../ui/renderMethodManager.js', () => ({
   createRenderMethod: vi.fn(() => ({
+    render: vi.fn(),
     setSelectElement: vi.fn(),
   })),
 }));
