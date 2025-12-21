@@ -10,10 +10,40 @@ vi.mock('../ui/contentArea.js', () => ({
   createContentArea: vi.fn(() => document.createElement('div')),
 }));
 
-vi.mock('../ui/renderMethodManager.js', () => ({
-  createRenderMethod: vi.fn(() => ({
+vi.mock('../ui/contentRenderer.js', () => ({
+  createContentRenderer: vi.fn(() => ({
     render: vi.fn(),
-    setSelectElement: vi.fn(),
+  })),
+}));
+
+vi.mock('../ui/diagramRendererService.js', () => ({
+  createDiagramRendererService: vi.fn(() => ({
+    render: vi.fn(),
+  })),
+}));
+
+vi.mock('../ui/focusManager.js', () => ({
+  createFocusManager: vi.fn(() => ({
+    focusContent: vi.fn(),
+  })),
+}));
+
+vi.mock('../ui/selectionStateManager.js', () => ({
+  createSelectionStateManager: vi.fn(() => ({
+    updateSelection: vi.fn(),
+  })),
+}));
+
+vi.mock('../navigation/urlManager.js', () => ({
+  createUrlManager: vi.fn(() => ({
+    update: vi.fn(),
+    getCurrent: vi.fn(),
+  })),
+}));
+
+vi.mock('../ui/renderOrchestrator.js', () => ({
+  createRenderOrchestrator: vi.fn(() => ({
+    render: vi.fn(),
   })),
 }));
 
