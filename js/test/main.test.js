@@ -21,6 +21,14 @@ vi.mock('../navigation/navigationManager.js', () => ({
   setupNavigation: vi.fn(),
 }));
 
+vi.mock('../core/eventBus.js', () => ({
+  createEventBus: vi.fn(() => ({
+    subscribe: vi.fn(),
+    publish: vi.fn(),
+    clear: vi.fn(),
+  })),
+}));
+
 describe('main application', () => {
   beforeEach(() => {
     // set up DOM environment

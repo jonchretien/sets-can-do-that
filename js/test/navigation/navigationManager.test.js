@@ -35,7 +35,7 @@ Object.defineProperty(window, 'removeEventListener', {
 
 describe('navigationManager', () => {
   let mockData;
-  let mockRenderMethod;
+  let mockEventBus;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -52,7 +52,11 @@ describe('navigationManager', () => {
       [CONFIG.SET_METHODS.IS_SUPERSET_OF]: { name: 'Is Superset Of' },
     };
 
-    mockRenderMethod = vi.fn();
+    mockEventBus = {
+      publish: vi.fn(),
+      subscribe: vi.fn(),
+      clear: vi.fn(),
+    };
   });
 
   afterEach(() => {
@@ -80,48 +84,51 @@ describe('navigationManager', () => {
   });
 
   describe('setupNavigation', () => {
-    it('should call renderMethod with a valid hash when hash exists in data', () => {
+    it('should publish navigation:methodChanged event with a valid hash when hash exists in data', () => {
       const validHash = CONFIG.SET_METHODS.DIFFERENCE;
       mockLocation.hash = `#${validHash}`;
 
-      setupNavigation(mockData, mockRenderMethod);
+      setupNavigation(mockData, mockEventBus);
 
-      expect(mockRenderMethod).toHaveBeenCalledWith(validHash);
-      expect(mockRenderMethod).toHaveBeenCalledTimes(1);
+      expect(mockEventBus.publish).toHaveBeenCalledWith(
+        'navigation:methodChanged',
+        { methodName: validHash }
+      );
+      expect(mockEventBus.publish).toHaveBeenCalledTimes(1);
     });
 
-    it('should call renderMethod with a random method when no hash exists', () => {
+    it('should publish navigation:methodChanged event with a random method when no hash exists', () => {
       mockLocation.hash = '';
 
-      setupNavigation(mockData, mockRenderMethod);
+      setupNavigation(mockData, mockEventBus);
 
-      expect(mockRenderMethod).toHaveBeenCalledTimes(1);
-      const calledMethod = mockRenderMethod.mock.calls[0][0];
-      expect(Object.values(CONFIG.SET_METHODS)).toContain(calledMethod);
+      expect(mockEventBus.publish).toHaveBeenCalledTimes(1);
+      const payload = mockEventBus.publish.mock.calls[0][1];
+      expect(Object.values(CONFIG.SET_METHODS)).toContain(payload.methodName);
     });
 
-    it('should call renderMethod with a random method when hash is invalid', () => {
+    it('should publish navigation:methodChanged event with a random method when hash is invalid', () => {
       mockLocation.hash = '#invalid-hash';
 
-      setupNavigation(mockData, mockRenderMethod);
+      setupNavigation(mockData, mockEventBus);
 
-      expect(mockRenderMethod).toHaveBeenCalledTimes(1);
-      const calledMethod = mockRenderMethod.mock.calls[0][0];
-      expect(Object.values(CONFIG.SET_METHODS)).toContain(calledMethod);
+      expect(mockEventBus.publish).toHaveBeenCalledTimes(1);
+      const payload = mockEventBus.publish.mock.calls[0][1];
+      expect(Object.values(CONFIG.SET_METHODS)).toContain(payload.methodName);
     });
 
-    it('should call renderMethod with a random method when hash is empty string', () => {
+    it('should publish navigation:methodChanged event with a random method when hash is empty string', () => {
       mockLocation.hash = '#';
 
-      setupNavigation(mockData, mockRenderMethod);
+      setupNavigation(mockData, mockEventBus);
 
-      expect(mockRenderMethod).toHaveBeenCalledTimes(1);
-      const calledMethod = mockRenderMethod.mock.calls[0][0];
-      expect(Object.values(CONFIG.SET_METHODS)).toContain(calledMethod);
+      expect(mockEventBus.publish).toHaveBeenCalledTimes(1);
+      const payload = mockEventBus.publish.mock.calls[0][1];
+      expect(Object.values(CONFIG.SET_METHODS)).toContain(payload.methodName);
     });
 
     it('should handle hashchange events correctly', () => {
-      setupNavigation(mockData, mockRenderMethod);
+      setupNavigation(mockData, mockEventBus);
 
       // get the event handler function
       const eventHandler = mockAddEventListener.mock.calls[0][1];
@@ -130,13 +137,14 @@ describe('navigationManager', () => {
       mockLocation.hash = `#${CONFIG.SET_METHODS.INTERSECTION}`;
       eventHandler();
 
-      expect(mockRenderMethod).toHaveBeenCalledWith(
-        CONFIG.SET_METHODS.INTERSECTION
+      expect(mockEventBus.publish).toHaveBeenCalledWith(
+        'navigation:methodChanged',
+        { methodName: CONFIG.SET_METHODS.INTERSECTION }
       );
     });
 
     it('should handle hashchange events with invalid hash', () => {
-      setupNavigation(mockData, mockRenderMethod);
+      setupNavigation(mockData, mockEventBus);
 
       // get the event handler function
       const eventHandler = mockAddEventListener.mock.calls[0][1];
@@ -145,14 +153,14 @@ describe('navigationManager', () => {
       mockLocation.hash = '#invalid-hash';
       eventHandler();
 
-      // should call with a random method
-      expect(mockRenderMethod).toHaveBeenCalledTimes(2); // Initial call + hashchange call
-      const lastCall = mockRenderMethod.mock.calls[1][0];
-      expect(Object.values(CONFIG.SET_METHODS)).toContain(lastCall);
+      // should publish with a random method
+      expect(mockEventBus.publish).toHaveBeenCalledTimes(2); // Initial call + hashchange call
+      const lastPayload = mockEventBus.publish.mock.calls[1][1];
+      expect(Object.values(CONFIG.SET_METHODS)).toContain(lastPayload.methodName);
     });
 
     it('should handle hashchange events with empty hash', () => {
-      setupNavigation(mockData, mockRenderMethod);
+      setupNavigation(mockData, mockEventBus);
 
       // get the event handler function
       const eventHandler = mockAddEventListener.mock.calls[0][1];
@@ -161,16 +169,16 @@ describe('navigationManager', () => {
       mockLocation.hash = '#';
       eventHandler();
 
-      // should call with a random method
-      expect(mockRenderMethod).toHaveBeenCalledTimes(2); // Initial call + hashchange call
-      const lastCall = mockRenderMethod.mock.calls[1][0];
-      expect(Object.values(CONFIG.SET_METHODS)).toContain(lastCall);
+      // should publish with a random method
+      expect(mockEventBus.publish).toHaveBeenCalledTimes(2); // Initial call + hashchange call
+      const lastPayload = mockEventBus.publish.mock.calls[1][1];
+      expect(Object.values(CONFIG.SET_METHODS)).toContain(lastPayload.methodName);
     });
 
-    it('should call renderMethod immediately on setup', () => {
-      setupNavigation(mockData, mockRenderMethod);
+    it('should publish event immediately on setup', () => {
+      setupNavigation(mockData, mockEventBus);
 
-      expect(mockRenderMethod).toHaveBeenCalledTimes(1);
+      expect(mockEventBus.publish).toHaveBeenCalledTimes(1);
     });
 
     it('should work with different data structures', () => {
@@ -180,9 +188,12 @@ describe('navigationManager', () => {
       };
 
       mockLocation.hash = '#custom-method';
-      setupNavigation(customData, mockRenderMethod);
+      setupNavigation(customData, mockEventBus);
 
-      expect(mockRenderMethod).toHaveBeenCalledWith('custom-method');
+      expect(mockEventBus.publish).toHaveBeenCalledWith(
+        'navigation:methodChanged',
+        { methodName: 'custom-method' }
+      );
     });
   });
 
@@ -193,11 +204,12 @@ describe('navigationManager', () => {
       };
 
       mockLocation.hash = '';
-      setupNavigation(singleMethodData, mockRenderMethod);
+      setupNavigation(singleMethodData, mockEventBus);
 
-      // when there's only one method, it should always be called
-      expect(mockRenderMethod).toHaveBeenCalledWith(
-        CONFIG.SET_METHODS.DIFFERENCE
+      // when there's only one method, it should always publish that method
+      expect(mockEventBus.publish).toHaveBeenCalledWith(
+        'navigation:methodChanged',
+        { methodName: CONFIG.SET_METHODS.DIFFERENCE }
       );
     });
   });

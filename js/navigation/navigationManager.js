@@ -13,22 +13,26 @@ function getRandomMethod(data) {
   return methods[randomIndex];
 }
 
-function createHashNavigationHandler(data, renderMethod) {
+function createHashNavigationHandler(data, eventBus) {
   return function handleHashNavigation() {
     const hash = urlManager.getCurrent();
-    // if there's a valid hash, render the method
+    let methodName;
+
+    // if there's a valid hash, use it
     if (hash && data[hash]) {
-      renderMethod(hash);
+      methodName = hash;
     } else {
       // if on page load or no valid hash, randomly select a composition method
-      const randomMethod = getRandomMethod(data);
-      renderMethod(randomMethod);
+      methodName = getRandomMethod(data);
     }
+
+    // Publish event instead of directly calling render
+    eventBus.publish('navigation:methodChanged', { methodName });
   };
 }
 
-export function setupNavigation(data, renderMethod) {
-  const handleHashNavigation = createHashNavigationHandler(data, renderMethod);
+export function setupNavigation(data, eventBus) {
+  const handleHashNavigation = createHashNavigationHandler(data, eventBus);
   handleHashNavigation();
   window.addEventListener('hashchange', handleHashNavigation);
 }
