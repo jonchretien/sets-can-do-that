@@ -1,7 +1,10 @@
 import { CONFIG } from '../config/constants.js';
+import { createUrlManager } from './urlManager.js';
+
+const urlManager = createUrlManager();
 
 export function updateUrlHash(hash) {
-  window.location.hash = hash;
+  urlManager.update(hash);
 }
 
 function getRandomMethod(data) {
@@ -12,7 +15,7 @@ function getRandomMethod(data) {
 
 function createHashNavigationHandler(data, renderMethod) {
   return function handleHashNavigation() {
-    const hash = window.location.hash.replace('#', '');
+    const hash = urlManager.getCurrent();
     // if there's a valid hash, render the method
     if (hash && data[hash]) {
       renderMethod(hash);

@@ -1,11 +1,12 @@
 import { renderMethodContent } from './contentArea.js';
 import { renderDiagram } from './diagramRenderer.js';
 import { createFocusManager } from './focusManager.js';
-import { updateUrlHash } from '../navigation/navigationManager.js';
+import { createUrlManager } from '../navigation/urlManager.js';
 
 export function createRenderMethod(data, contentElement) {
   let selectElement = null;
   const focusManager = createFocusManager(contentElement);
+  const urlManager = createUrlManager();
 
   function render(methodName) {
     const methodData = data[methodName];
@@ -21,7 +22,7 @@ export function createRenderMethod(data, contentElement) {
 
     focusManager.focusContent();
 
-    updateUrlHash(methodName);
+    urlManager.update(methodName);
   }
 
   function setSelectElement(element) {

@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { createRenderMethod } from '../../ui/renderMethodManager.js';
 import { renderMethodContent } from '../../ui/contentArea.js';
 import { renderDiagram } from '../../ui/diagramRenderer.js';
-import { updateUrlHash } from '../../navigation/navigationManager.js';
 
 vi.mock('../../ui/contentArea.js', () => ({
   renderMethodContent: vi.fn(),
@@ -12,14 +11,17 @@ vi.mock('../../ui/diagramRenderer.js', () => ({
   renderDiagram: vi.fn(),
 }));
 
-vi.mock('../../navigation/navigationManager.js', () => ({
-  updateUrlHash: vi.fn(),
+const mockUpdate = vi.fn();
+vi.mock('../../navigation/urlManager.js', () => ({
+  createUrlManager: vi.fn(() => ({
+    update: mockUpdate,
+    getCurrent: vi.fn(),
+  })),
 }));
 
 describe('renderMethodManager', () => {
   let mockRenderMethodContent;
   let mockRenderDiagram;
-  let mockUpdateUrlHash;
   let mockData;
   let mockContentElement;
   let renderMethod;
@@ -29,7 +31,6 @@ describe('renderMethodManager', () => {
 
     mockRenderMethodContent = renderMethodContent;
     mockRenderDiagram = renderDiagram;
-    mockUpdateUrlHash = updateUrlHash;
 
     mockData = {
       difference: {
@@ -98,10 +99,10 @@ describe('renderMethodManager', () => {
       );
     });
 
-    it('should call updateUrlHash with method name', () => {
+    it('should call urlManager.update with method name', () => {
       renderMethod.render('intersection');
 
-      expect(mockUpdateUrlHash).toHaveBeenCalledWith('intersection');
+      expect(mockUpdate).toHaveBeenCalledWith('intersection');
     });
 
     it('should update select element value when selectElement is set', () => {
@@ -155,7 +156,7 @@ describe('renderMethodManager', () => {
       // should not call any rendering functions
       expect(mockRenderMethodContent).not.toHaveBeenCalled();
       expect(mockRenderDiagram).not.toHaveBeenCalled();
-      expect(mockUpdateUrlHash).not.toHaveBeenCalled();
+      expect(mockUpdate).not.toHaveBeenCalled();
     });
 
     it('should handle undefined method gracefully', () => {
@@ -163,7 +164,7 @@ describe('renderMethodManager', () => {
 
       expect(mockRenderMethodContent).not.toHaveBeenCalled();
       expect(mockRenderDiagram).not.toHaveBeenCalled();
-      expect(mockUpdateUrlHash).not.toHaveBeenCalled();
+      expect(mockUpdate).not.toHaveBeenCalled();
     });
 
     it('should handle null method gracefully', () => {
@@ -171,7 +172,7 @@ describe('renderMethodManager', () => {
 
       expect(mockRenderMethodContent).not.toHaveBeenCalled();
       expect(mockRenderDiagram).not.toHaveBeenCalled();
-      expect(mockUpdateUrlHash).not.toHaveBeenCalled();
+      expect(mockUpdate).not.toHaveBeenCalled();
     });
   });
 
