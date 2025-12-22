@@ -1,0 +1,256 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { createRenderOrchestrator } from '../../ui/renderOrchestrator.js';
+
+describe('renderOrchestrator', () => {
+  let mockDependencies;
+  let orchestrator;
+
+  beforeEach(() => {
+    mockDependencies = {
+      contentRenderer: { render: vi.fn() },
+      diagramRenderer: { render: vi.fn() },
+      focusManager: { focusContent: vi.fn() },
+      urlManager: { update: vi.fn() },
+      stateManager: { updateSelection: vi.fn() },
+    };
+    orchestrator = createRenderOrchestrator(mockDependencies);
+  });
+
+  describe('createRenderOrchestrator factory', () => {
+    it('should return an object with render method', () => {
+      expect(typeof orchestrator).toBe('object');
+      expect(typeof orchestrator.render).toBe('function');
+    });
+  });
+
+  describe('render() - null guard', () => {
+    it('should not call any dependencies when methodData is null', () => {
+      orchestrator.render('testMethod', null);
+
+      expect(mockDependencies.contentRenderer.render).not.toHaveBeenCalled();
+      expect(mockDependencies.diagramRenderer.render).not.toHaveBeenCalled();
+      expect(mockDependencies.focusManager.focusContent).not.toHaveBeenCalled();
+      expect(mockDependencies.stateManager.updateSelection).not.toHaveBeenCalled();
+      expect(mockDependencies.urlManager.update).not.toHaveBeenCalled();
+    });
+
+    it('should not call any dependencies when methodData is undefined', () => {
+      orchestrator.render('testMethod', undefined);
+
+      expect(mockDependencies.contentRenderer.render).not.toHaveBeenCalled();
+      expect(mockDependencies.diagramRenderer.render).not.toHaveBeenCalled();
+      expect(mockDependencies.focusManager.focusContent).not.toHaveBeenCalled();
+      expect(mockDependencies.stateManager.updateSelection).not.toHaveBeenCalled();
+      expect(mockDependencies.urlManager.update).not.toHaveBeenCalled();
+    });
+
+    it('should not call any dependencies when methodData is omitted', () => {
+      orchestrator.render('testMethod');
+
+      expect(mockDependencies.contentRenderer.render).not.toHaveBeenCalled();
+      expect(mockDependencies.diagramRenderer.render).not.toHaveBeenCalled();
+      expect(mockDependencies.focusManager.focusContent).not.toHaveBeenCalled();
+      expect(mockDependencies.stateManager.updateSelection).not.toHaveBeenCalled();
+      expect(mockDependencies.urlManager.update).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('render() - basic orchestration', () => {
+    const mockMethodData = {
+      emoji: '🔄',
+      description: 'Test method',
+      code: 'test.code()',
+      output: 'test output',
+    };
+
+    it('should call contentRenderer.render with methodName and methodData', () => {
+      orchestrator.render('union', mockMethodData);
+
+      expect(mockDependencies.contentRenderer.render).toHaveBeenCalledWith(
+        'union',
+        mockMethodData
+      );
+    });
+
+    it('should call diagramRenderer.render with methodName', () => {
+      orchestrator.render('difference', mockMethodData);
+
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('difference');
+    });
+
+    it('should call focusManager.focusContent with no arguments', () => {
+      orchestrator.render('intersection', mockMethodData);
+
+      expect(mockDependencies.focusManager.focusContent).toHaveBeenCalledWith();
+    });
+
+    it('should call stateManager.updateSelection with methodName', () => {
+      orchestrator.render('symmetricDifference', mockMethodData);
+
+      expect(mockDependencies.stateManager.updateSelection).toHaveBeenCalledWith(
+        'symmetricDifference'
+      );
+    });
+
+    it('should call urlManager.update with methodName', () => {
+      orchestrator.render('isSubsetOf', mockMethodData);
+
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('isSubsetOf');
+    });
+
+    it('should call all dependencies exactly once', () => {
+      orchestrator.render('union', mockMethodData);
+
+      expect(mockDependencies.contentRenderer.render).toHaveBeenCalledTimes(1);
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledTimes(1);
+      expect(mockDependencies.focusManager.focusContent).toHaveBeenCalledTimes(1);
+      expect(mockDependencies.stateManager.updateSelection).toHaveBeenCalledTimes(1);
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('render() - call order', () => {
+    it('should call dependencies in correct order', () => {
+      const callOrder = [];
+      const mockMethodData = { emoji: '🔄', description: 'Test' };
+
+      mockDependencies.contentRenderer.render.mockImplementation(() =>
+        callOrder.push('contentRenderer')
+      );
+      mockDependencies.diagramRenderer.render.mockImplementation(() =>
+        callOrder.push('diagramRenderer')
+      );
+      mockDependencies.focusManager.focusContent.mockImplementation(() =>
+        callOrder.push('focusManager')
+      );
+      mockDependencies.stateManager.updateSelection.mockImplementation(() =>
+        callOrder.push('stateManager')
+      );
+      mockDependencies.urlManager.update.mockImplementation(() =>
+        callOrder.push('urlManager')
+      );
+
+      orchestrator.render('union', mockMethodData);
+
+      expect(callOrder).toEqual([
+        'contentRenderer',
+        'diagramRenderer',
+        'focusManager',
+        'stateManager',
+        'urlManager',
+      ]);
+    });
+  });
+
+  describe('render() - multiple invocations', () => {
+    it('should handle multiple sequential render calls', () => {
+      const methodData1 = { emoji: '🔄', description: 'First' };
+      const methodData2 = { emoji: '🎯', description: 'Second' };
+
+      orchestrator.render('union', methodData1);
+      orchestrator.render('intersection', methodData2);
+
+      expect(mockDependencies.contentRenderer.render).toHaveBeenCalledTimes(2);
+      expect(mockDependencies.contentRenderer.render).toHaveBeenNthCalledWith(
+        1,
+        'union',
+        methodData1
+      );
+      expect(mockDependencies.contentRenderer.render).toHaveBeenNthCalledWith(
+        2,
+        'intersection',
+        methodData2
+      );
+    });
+
+    it('should maintain independence between calls', () => {
+      const methodData = { emoji: '🔄', description: 'Test' };
+
+      orchestrator.render('union', methodData);
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledTimes(1);
+
+      orchestrator.render('difference', methodData);
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('render() - different method names', () => {
+    const mockMethodData = { emoji: '🔄', description: 'Test' };
+
+    it('should work with intersection method', () => {
+      orchestrator.render('intersection', mockMethodData);
+
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('intersection');
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('intersection');
+    });
+
+    it('should work with union method', () => {
+      orchestrator.render('union', mockMethodData);
+
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('union');
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('union');
+    });
+
+    it('should work with difference method', () => {
+      orchestrator.render('difference', mockMethodData);
+
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('difference');
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('difference');
+    });
+
+    it('should work with symmetricDifference method', () => {
+      orchestrator.render('symmetricDifference', mockMethodData);
+
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith(
+        'symmetricDifference'
+      );
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('symmetricDifference');
+    });
+
+    it('should work with isSubsetOf method', () => {
+      orchestrator.render('isSubsetOf', mockMethodData);
+
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('isSubsetOf');
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('isSubsetOf');
+    });
+
+    it('should work with isSupersetOf method', () => {
+      orchestrator.render('isSupersetOf', mockMethodData);
+
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('isSupersetOf');
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('isSupersetOf');
+    });
+
+    it('should work with isDisjointFrom method', () => {
+      orchestrator.render('isDisjointFrom', mockMethodData);
+
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('isDisjointFrom');
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('isDisjointFrom');
+    });
+  });
+
+  describe('render() - edge cases', () => {
+    it('should handle empty object as methodData', () => {
+      orchestrator.render('test', {});
+
+      // Empty object is truthy, so all dependencies should be called
+      expect(mockDependencies.contentRenderer.render).toHaveBeenCalledWith('test', {});
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('test');
+      expect(mockDependencies.focusManager.focusContent).toHaveBeenCalled();
+      expect(mockDependencies.stateManager.updateSelection).toHaveBeenCalledWith('test');
+      expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('test');
+    });
+
+    it('should handle methodData with partial properties', () => {
+      const partialData = { emoji: '🎯' };
+
+      orchestrator.render('test', partialData);
+
+      expect(mockDependencies.contentRenderer.render).toHaveBeenCalledWith(
+        'test',
+        partialData
+      );
+      expect(mockDependencies.diagramRenderer.render).toHaveBeenCalled();
+    });
+  });
+});
