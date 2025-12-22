@@ -1,8 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import {
-  updateUrlHash,
-  setupNavigation,
-} from '../../navigation/navigationManager.js';
+import { setupNavigation } from '../../navigation/navigationManager.js';
 import { CONFIG } from '../../config/constants.js';
 
 const mockLocation = {
@@ -62,25 +59,6 @@ describe('navigationManager', () => {
   afterEach(() => {
     mockAddEventListener.mockClear();
     mockRemoveEventListener.mockClear();
-  });
-
-  describe('updateUrlHash', () => {
-    it('should update window.location.hash with the provided hash', () => {
-      const testHash = 'test-hash';
-      updateUrlHash(testHash);
-      expect(mockLocation.hash).toBe(testHash);
-    });
-
-    it('should handle empty hash', () => {
-      updateUrlHash('');
-      expect(mockLocation.hash).toBe('');
-    });
-
-    it('should handle special characters in hash', () => {
-      const specialHash = 'test-hash-with-special-chars-!@#$%';
-      updateUrlHash(specialHash);
-      expect(mockLocation.hash).toBe(specialHash);
-    });
   });
 
   describe('setupNavigation', () => {

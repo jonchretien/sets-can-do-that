@@ -3,10 +3,6 @@ import { createUrlManager } from './urlManager.js';
 
 const urlManager = createUrlManager();
 
-export function updateUrlHash(hash) {
-  urlManager.update(hash);
-}
-
 function getRandomMethod(data) {
   const methods = Object.keys(data);
   const randomIndex = Math.floor(Math.random() * methods.length);
