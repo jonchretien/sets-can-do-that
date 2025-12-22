@@ -4,7 +4,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['./js/test/setup.js'],
     include: ['js/test/**/*.test.js'],
     exclude: ['node_modules/**', 'dist/**'],
     coverage: {

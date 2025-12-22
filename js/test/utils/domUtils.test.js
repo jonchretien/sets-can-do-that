@@ -1,12 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { createElement } from '../../utils/domUtils.js';
 
 describe('domUtils', () => {
-  beforeEach(() => {
-    // set up DOM environment for each test
-    document.body.innerHTML = '';
-  });
-
   afterEach(() => {
     // clean up after each test
     document.body.innerHTML = '';

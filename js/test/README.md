@@ -105,10 +105,11 @@ it('should handle async operations', async () => {
 
 ## Test Setup
 
-The `setup.js` file provides:
-- Global DOM mocks (ResizeObserver, IntersectionObserver)
-- Test utility functions
-- Common test environment configuration
+Vitest is configured with jsdom as the test environment, which provides a browser-like DOM for testing without requiring a real browser. Modern jsdom (v26.1.0) includes comprehensive DOM API support.
+
+The test environment is configured in `vitest.config.js` with:
+- `environment: 'jsdom'` - Provides browser-like DOM APIs
+- `globals: true` - Makes test functions available globally
 
 ## Best Practices
 
