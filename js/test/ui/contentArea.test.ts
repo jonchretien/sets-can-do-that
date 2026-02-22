@@ -3,6 +3,7 @@ import {
   createContentArea,
   renderMethodContent,
 } from '../../ui/contentArea.js';
+import type { MethodData } from '../../types.js';
 
 describe('contentArea', () => {
   beforeEach(() => {
@@ -34,9 +35,10 @@ describe('contentArea', () => {
   });
 
   describe('renderMethodContent', () => {
-    const mockMethodData = {
+    const mockMethodData: MethodData = {
       emoji: '🍦',
       description: 'Test description for the method',
+      example: 'Test example',
       code: '<span class="keyword">const</span> test = true;',
       output:
         '<span class="set">Set</span>(2) {<span class="string">\'test\'</span>}',
@@ -100,7 +102,7 @@ describe('contentArea', () => {
     });
 
     it('should handle HTML content in description', () => {
-      const dataWithHtml = {
+      const dataWithHtml: MethodData = {
         ...mockMethodData,
         description: 'Test <strong>bold</strong> text',
       };

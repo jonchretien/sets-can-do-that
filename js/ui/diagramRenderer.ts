@@ -1,6 +1,6 @@
 import { getDiagramStrategy } from '../svg/diagramStrategies.js';
 
-export function renderDiagram(wrapper, methodName) {
+export function renderDiagram(wrapper: HTMLElement | null | undefined, methodName: string) {
   if (!wrapper) {
     console.error('No wrapper element provided for diagram');
     return;

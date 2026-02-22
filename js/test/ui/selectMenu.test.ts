@@ -1,10 +1,11 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { createSelectMenu } from '../../ui/selectMenu.js';
 import { CONFIG } from '../../config/constants.js';
+import type { SetMethodName } from '../../types.js';
 
 describe('selectMenu', () => {
-  let selectElement;
-  let onChangeMock;
+  let selectElement: HTMLSelectElement;
+  let onChangeMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     onChangeMock = vi.fn();
@@ -27,7 +28,7 @@ describe('selectMenu', () => {
     });
 
     it('should have default "Pick a method" option', () => {
-      const firstOption = selectElement.querySelector('option');
+      const firstOption = selectElement.querySelector('option')!;
       expect(firstOption.textContent).toBe('Pick a method');
       expect(firstOption.disabled).toBe(true);
       expect(firstOption.selected).toBe(true);
@@ -51,7 +52,7 @@ describe('selectMenu', () => {
 
     it('should call onChange when selection changes', () => {
       const methodOptions = selectElement.querySelectorAll('option');
-      const testOption = methodOptions[1]; // first actual method option
+      const testOption = methodOptions[1] as HTMLOptionElement; // first actual method option
 
       // simulate change event
       const changeEvent = new Event('change');
@@ -63,7 +64,7 @@ describe('selectMenu', () => {
 
     it('should call onChange with correct method value', () => {
       const methodOptions = selectElement.querySelectorAll('option');
-      const testOption = methodOptions[2]; // second actual method option
+      const testOption = methodOptions[2] as HTMLOptionElement; // second actual method option
 
       // simulate change event
       const changeEvent = new Event('change');
