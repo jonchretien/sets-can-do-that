@@ -1,10 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { setupNavigation } from '../../navigation/navigationManager.js';
 import { CONFIG } from '../../config/constants.js';
+import type { MethodDataMap, EventBus } from '../../types.js';
 
 const mockLocation = {
   _hash: '',
-  set hash(value) {
+  set hash(value: string) {
     this._hash = value;
   },
   get hash() {
@@ -31,8 +32,8 @@ Object.defineProperty(window, 'removeEventListener', {
 });
 
 describe('navigationManager', () => {
-  let mockData;
-  let mockEventBus;
+  let mockData: MethodDataMap;
+  let mockEventBus: EventBus;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -41,13 +42,11 @@ describe('navigationManager', () => {
       [CONFIG.SET_METHODS.DIFFERENCE]: { name: 'Difference' },
       [CONFIG.SET_METHODS.INTERSECTION]: { name: 'Intersection' },
       [CONFIG.SET_METHODS.UNION]: { name: 'Union' },
-      [CONFIG.SET_METHODS.SYMMETRIC_DIFFERENCE]: {
-        name: 'Symmetric Difference',
-      },
+      [CONFIG.SET_METHODS.SYMMETRIC_DIFFERENCE]: { name: 'Symmetric Difference' },
       [CONFIG.SET_METHODS.IS_DISJOINT_FROM]: { name: 'Is Disjoint From' },
       [CONFIG.SET_METHODS.IS_SUBSET_OF]: { name: 'Is Subset Of' },
       [CONFIG.SET_METHODS.IS_SUPERSET_OF]: { name: 'Is Superset Of' },
-    };
+    } as unknown as MethodDataMap;
 
     mockEventBus = {
       publish: vi.fn(),
@@ -81,7 +80,7 @@ describe('navigationManager', () => {
       setupNavigation(mockData, mockEventBus);
 
       expect(mockEventBus.publish).toHaveBeenCalledTimes(1);
-      const payload = mockEventBus.publish.mock.calls[0][1];
+      const payload = (mockEventBus.publish as ReturnType<typeof vi.fn>).mock.calls[0][1];
       expect(Object.values(CONFIG.SET_METHODS)).toContain(payload.methodName);
     });
 
@@ -91,7 +90,7 @@ describe('navigationManager', () => {
       setupNavigation(mockData, mockEventBus);
 
       expect(mockEventBus.publish).toHaveBeenCalledTimes(1);
-      const payload = mockEventBus.publish.mock.calls[0][1];
+      const payload = (mockEventBus.publish as ReturnType<typeof vi.fn>).mock.calls[0][1];
       expect(Object.values(CONFIG.SET_METHODS)).toContain(payload.methodName);
     });
 
@@ -101,7 +100,7 @@ describe('navigationManager', () => {
       setupNavigation(mockData, mockEventBus);
 
       expect(mockEventBus.publish).toHaveBeenCalledTimes(1);
-      const payload = mockEventBus.publish.mock.calls[0][1];
+      const payload = (mockEventBus.publish as ReturnType<typeof vi.fn>).mock.calls[0][1];
       expect(Object.values(CONFIG.SET_METHODS)).toContain(payload.methodName);
     });
 
@@ -133,7 +132,7 @@ describe('navigationManager', () => {
 
       // should publish with a random method
       expect(mockEventBus.publish).toHaveBeenCalledTimes(2); // Initial call + hashchange call
-      const lastPayload = mockEventBus.publish.mock.calls[1][1];
+      const lastPayload = (mockEventBus.publish as ReturnType<typeof vi.fn>).mock.calls[1][1];
       expect(Object.values(CONFIG.SET_METHODS)).toContain(lastPayload.methodName);
     });
 
@@ -149,7 +148,7 @@ describe('navigationManager', () => {
 
       // should publish with a random method
       expect(mockEventBus.publish).toHaveBeenCalledTimes(2); // Initial call + hashchange call
-      const lastPayload = mockEventBus.publish.mock.calls[1][1];
+      const lastPayload = (mockEventBus.publish as ReturnType<typeof vi.fn>).mock.calls[1][1];
       expect(Object.values(CONFIG.SET_METHODS)).toContain(lastPayload.methodName);
     });
 
@@ -166,7 +165,7 @@ describe('navigationManager', () => {
       };
 
       mockLocation.hash = '#custom-method';
-      setupNavigation(customData, mockEventBus);
+      setupNavigation(customData as unknown as MethodDataMap, mockEventBus);
 
       expect(mockEventBus.publish).toHaveBeenCalledWith(
         'navigation:methodChanged',
@@ -182,7 +181,7 @@ describe('navigationManager', () => {
       };
 
       mockLocation.hash = '';
-      setupNavigation(singleMethodData, mockEventBus);
+      setupNavigation(singleMethodData as unknown as MethodDataMap, mockEventBus);
 
       // when there's only one method, it should always publish that method
       expect(mockEventBus.publish).toHaveBeenCalledWith(
