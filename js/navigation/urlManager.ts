@@ -1,6 +1,8 @@
-export function createUrlManager() {
+import type { UrlManagerDep } from '../types.js';
+
+export function createUrlManager(): UrlManagerDep {
   return {
-    update(methodName) {
+    update(methodName: string) {
       window.location.hash = methodName;
     },
 

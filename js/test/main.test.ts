@@ -101,7 +101,7 @@ describe('main application', () => {
   describe('copyright year', () => {
     it('should set current year in copyright element', () => {
       const currentYear = new Date().getFullYear().toString();
-      const copyrightElement = document.getElementById('copyright');
+      const copyrightElement = document.getElementById('copyright')!;
       copyrightElement.textContent = currentYear;
       expect(copyrightElement.textContent).toBe(currentYear);
     });

@@ -64,8 +64,8 @@ describe('domUtils', () => {
 
     it('should handle null and undefined attributes gracefully', () => {
       const element = createElement('div', {
-        'data-null': null,
-        'data-undefined': undefined,
+        'data-null': null as unknown as string,
+        'data-undefined': undefined as unknown as string,
       });
 
       expect(element.getAttribute('data-null')).toBe('null');

@@ -1,6 +1,7 @@
 import { createElement } from '../utils/domUtils.js';
+import type { MethodData } from '../types.js';
 
-export function createContentArea() {
+export function createContentArea(): HTMLDivElement {
   return createElement('div', {
     'aria-live': 'polite',
     'aria-atomic': 'true',
@@ -8,7 +9,7 @@ export function createContentArea() {
   });
 }
 
-export function renderMethodContent(methodName, methodData) {
+export function renderMethodContent(methodName: string, methodData: MethodData): string {
   return `
     <h2 class="content-area__title">${methodName} ${methodData.emoji}</h2>
     <p class="content-area__description">${methodData.description}</p>

@@ -1,6 +1,7 @@
 import { CONFIG } from '../config/constants.js';
+import type { DiagramStrategy, SetMethodName } from '../types.js';
 
-export function getDiagramStrategy(methodName) {
+export function getDiagramStrategy(methodName: unknown): DiagramStrategy | undefined {
   const strategies = {
     [CONFIG.SET_METHODS.DIFFERENCE]: createDifferenceDiagram,
     [CONFIG.SET_METHODS.INTERSECTION]: createIntersectionDiagram,
@@ -9,11 +10,11 @@ export function getDiagramStrategy(methodName) {
     [CONFIG.SET_METHODS.IS_DISJOINT_FROM]: createDisjointDiagram,
     [CONFIG.SET_METHODS.IS_SUBSET_OF]: createSubsetDiagram,
     [CONFIG.SET_METHODS.IS_SUPERSET_OF]: createSupersetDiagram,
-  };
-  return strategies[methodName];
+  } as Record<SetMethodName, DiagramStrategy>;
+  return strategies[methodName as SetMethodName];
 }
 
-function createDifferenceDiagram() {
+function createDifferenceDiagram(): string {
   return `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${CONFIG.SVG.WIDTH} ${CONFIG.SVG.HEIGHT}" role="img" aria-label="Venn diagram showing set difference: elements in set A that are not in set B">
       <rect width="100%" height="100%" fill="#fff"/>
@@ -25,7 +26,7 @@ function createDifferenceDiagram() {
     </svg>`;
 }
 
-function createIntersectionDiagram() {
+function createIntersectionDiagram(): string {
   return `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${CONFIG.SVG.WIDTH} ${CONFIG.SVG.HEIGHT}" role="img" aria-label="Venn diagram showing set intersection: elements in both set A and set B">
       <rect width="100%" height="100%" fill="#fff"/>
@@ -37,7 +38,7 @@ function createIntersectionDiagram() {
     </svg>`;
 }
 
-function createSymmetricDifferenceDiagram() {
+function createSymmetricDifferenceDiagram(): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${CONFIG.SVG.WIDTH} ${CONFIG.SVG.HEIGHT}" role="img" aria-label="Venn diagram showing symmetric difference: elements in either set A or B but not both">
     <rect width="100%" height="100%" fill="#fff"/>
     <path d="M115 100c0-25.91 14.08-48.51 35-60.61A69.667 69.667 0 0 0 115 30c-38.66 0-70 31.34-70 70s31.34 70 70 70c12.75 0 24.7-3.43 35-9.39-20.92-12.1-35-34.7-35-60.61zm70-70c-12.75 0-24.7 3.43-35 9.39 20.92 12.1 35 34.71 35 60.61s-14.08 48.51-35 60.61a69.667 69.667 0 0 0 35 9.39c38.66 0 70-31.34 70-70s-31.34-70-70-70z" style="fill:#ea9930"/>
@@ -48,7 +49,7 @@ function createSymmetricDifferenceDiagram() {
   </svg>`;
 }
 
-function createUnionDiagram() {
+function createUnionDiagram(): string {
   return `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${CONFIG.SVG.WIDTH} ${CONFIG.SVG.HEIGHT}" role="img" aria-label="Venn diagram showing set union: elements in either set A or B">
       <rect width="100%" height="100%" fill="#fff"/>
@@ -60,7 +61,7 @@ function createUnionDiagram() {
     </svg>`;
 }
 
-function createDisjointDiagram() {
+function createDisjointDiagram(): string {
   return `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${CONFIG.SVG.WIDTH} ${CONFIG.SVG.HEIGHT}" role="img" aria-label="Venn diagram showing disjoint sets: no elements in common between set A and set B">
       <rect width="100%" height="100%" fill="#fff"/>
@@ -71,7 +72,7 @@ function createDisjointDiagram() {
     </svg>`;
 }
 
-function createSubsetDiagram() {
+function createSubsetDiagram(): string {
   return `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${CONFIG.SVG.WIDTH} ${CONFIG.SVG.HEIGHT}" role="img" aria-label="Venn diagram showing subset: all elements of set A are also in set B">
     <rect width="100%" height="100%" fill="#fff"/>
@@ -82,7 +83,7 @@ function createSubsetDiagram() {
   </svg>`;
 }
 
-function createSupersetDiagram() {
+function createSupersetDiagram(): string {
   return `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${CONFIG.SVG.WIDTH} ${CONFIG.SVG.HEIGHT}" role="img" aria-label="Venn diagram showing superset: all elements of set B are also in set A">
     <rect width="100%" height="100%" fill="#fff"/>

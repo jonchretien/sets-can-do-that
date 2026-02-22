@@ -1,8 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { createEventBus } from '../../core/eventBus.js';
+import type { EventBus } from '../../types.js';
 
 describe('eventBus', () => {
-  let eventBus;
+  let eventBus: EventBus;
 
   beforeEach(() => {
     eventBus = createEventBus();
@@ -124,7 +125,7 @@ describe('eventBus', () => {
     });
 
     it('should call handlers in order of subscription', () => {
-      const callOrder = [];
+      const callOrder: string[] = [];
       const handler1 = vi.fn(() => callOrder.push('handler1'));
       const handler2 = vi.fn(() => callOrder.push('handler2'));
       const handler3 = vi.fn(() => callOrder.push('handler3'));
@@ -212,7 +213,7 @@ describe('eventBus', () => {
 
     it('should support dynamic subscription and unsubscription', () => {
       const handler = vi.fn();
-      let unsubscribe;
+      let unsubscribe: () => void;
 
       // Subscribe
       unsubscribe = eventBus.subscribe('testEvent', handler);

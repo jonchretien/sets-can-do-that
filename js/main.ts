@@ -9,6 +9,7 @@ import { createUrlManager } from './navigation/urlManager.js';
 import { createRenderOrchestrator } from './ui/renderOrchestrator.js';
 import { setupNavigation } from './navigation/navigationManager.js';
 import { createEventBus } from './core/eventBus.js';
+import type { NavigationPayload } from './types.js';
 
 function initializeApp() {
   const data = getSetExamplesData();
@@ -16,7 +17,7 @@ function initializeApp() {
   const eventBus = createEventBus();
 
   // Create render function that will be used by select menu
-  let renderMethod;
+  let renderMethod: ((methodName: string) => void) | undefined;
 
   // Create select menu with render callback
   const selectElement = createSelectMenu((methodName) => {
@@ -41,18 +42,18 @@ function initializeApp() {
   });
 
   // Define render method
-  renderMethod = (methodName) => {
-    const methodData = data[methodName];
+  renderMethod = (methodName: string) => {
+    const methodData = data[methodName as keyof typeof data];
     orchestrator.render(methodName, methodData);
   };
 
   // Subscribe to navigation events
-  eventBus.subscribe('navigation:methodChanged', ({ methodName }) => {
-    renderMethod(methodName);
+  eventBus.subscribe<NavigationPayload>('navigation:methodChanged', ({ methodName }) => {
+    renderMethod!(methodName);
   });
 
-  document.getElementById('app').append(selectElement, contentElement);
-  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('app')!.append(selectElement, contentElement);
+  document.getElementById('year')!.textContent = new Date().getFullYear().toString();
   setupNavigation(data, eventBus);
 }
 

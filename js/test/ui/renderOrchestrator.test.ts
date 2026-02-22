@@ -1,16 +1,17 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { createRenderOrchestrator } from '../../ui/renderOrchestrator.js';
+import type { RenderOrchestratorDeps, MethodData } from '../../types.js';
 
 describe('renderOrchestrator', () => {
-  let mockDependencies;
-  let orchestrator;
+  let mockDependencies: RenderOrchestratorDeps;
+  let orchestrator: ReturnType<typeof createRenderOrchestrator>;
 
   beforeEach(() => {
     mockDependencies = {
       contentRenderer: { render: vi.fn() },
       diagramRenderer: { render: vi.fn() },
       focusManager: { focusContent: vi.fn() },
-      urlManager: { update: vi.fn() },
+      urlManager: { update: vi.fn(), getCurrent: vi.fn() },
       stateManager: { updateSelection: vi.fn() },
     };
     orchestrator = createRenderOrchestrator(mockDependencies);
@@ -25,7 +26,7 @@ describe('renderOrchestrator', () => {
 
   describe('render() - null guard', () => {
     it('should not call any dependencies when methodData is null', () => {
-      orchestrator.render('testMethod', null);
+      orchestrator.render('testMethod', null as unknown as MethodData);
 
       expect(mockDependencies.contentRenderer.render).not.toHaveBeenCalled();
       expect(mockDependencies.diagramRenderer.render).not.toHaveBeenCalled();
@@ -56,9 +57,10 @@ describe('renderOrchestrator', () => {
   });
 
   describe('render() - basic orchestration', () => {
-    const mockMethodData = {
+    const mockMethodData: MethodData = {
       emoji: '🔄',
       description: 'Test method',
+      example: 'Test example',
       code: 'test.code()',
       output: 'test output',
     };
@@ -111,26 +113,26 @@ describe('renderOrchestrator', () => {
 
   describe('render() - call order', () => {
     it('should call dependencies in correct order', () => {
-      const callOrder = [];
-      const mockMethodData = { emoji: '🔄', description: 'Test' };
+      const callOrder: string[] = [];
+      const mockMethodData: Partial<MethodData> = { emoji: '🔄', description: 'Test' };
 
-      mockDependencies.contentRenderer.render.mockImplementation(() =>
+      (mockDependencies.contentRenderer.render as ReturnType<typeof vi.fn>).mockImplementation(() =>
         callOrder.push('contentRenderer')
       );
-      mockDependencies.diagramRenderer.render.mockImplementation(() =>
+      (mockDependencies.diagramRenderer.render as ReturnType<typeof vi.fn>).mockImplementation(() =>
         callOrder.push('diagramRenderer')
       );
-      mockDependencies.focusManager.focusContent.mockImplementation(() =>
+      (mockDependencies.focusManager.focusContent as ReturnType<typeof vi.fn>).mockImplementation(() =>
         callOrder.push('focusManager')
       );
-      mockDependencies.stateManager.updateSelection.mockImplementation(() =>
+      (mockDependencies.stateManager.updateSelection as ReturnType<typeof vi.fn>).mockImplementation(() =>
         callOrder.push('stateManager')
       );
-      mockDependencies.urlManager.update.mockImplementation(() =>
+      (mockDependencies.urlManager.update as ReturnType<typeof vi.fn>).mockImplementation(() =>
         callOrder.push('urlManager')
       );
 
-      orchestrator.render('union', mockMethodData);
+      orchestrator.render('union', mockMethodData as MethodData);
 
       expect(callOrder).toEqual([
         'contentRenderer',
@@ -144,11 +146,11 @@ describe('renderOrchestrator', () => {
 
   describe('render() - multiple invocations', () => {
     it('should handle multiple sequential render calls', () => {
-      const methodData1 = { emoji: '🔄', description: 'First' };
-      const methodData2 = { emoji: '🎯', description: 'Second' };
+      const methodData1: Partial<MethodData> = { emoji: '🔄', description: 'First' };
+      const methodData2: Partial<MethodData> = { emoji: '🎯', description: 'Second' };
 
-      orchestrator.render('union', methodData1);
-      orchestrator.render('intersection', methodData2);
+      orchestrator.render('union', methodData1 as MethodData);
+      orchestrator.render('intersection', methodData2 as MethodData);
 
       expect(mockDependencies.contentRenderer.render).toHaveBeenCalledTimes(2);
       expect(mockDependencies.contentRenderer.render).toHaveBeenNthCalledWith(
@@ -164,42 +166,42 @@ describe('renderOrchestrator', () => {
     });
 
     it('should maintain independence between calls', () => {
-      const methodData = { emoji: '🔄', description: 'Test' };
+      const methodData: Partial<MethodData> = { emoji: '🔄', description: 'Test' };
 
-      orchestrator.render('union', methodData);
+      orchestrator.render('union', methodData as MethodData);
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledTimes(1);
 
-      orchestrator.render('difference', methodData);
+      orchestrator.render('difference', methodData as MethodData);
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledTimes(2);
     });
   });
 
   describe('render() - different method names', () => {
-    const mockMethodData = { emoji: '🔄', description: 'Test' };
+    const mockMethodData: Partial<MethodData> = { emoji: '🔄', description: 'Test' };
 
     it('should work with intersection method', () => {
-      orchestrator.render('intersection', mockMethodData);
+      orchestrator.render('intersection', mockMethodData as MethodData);
 
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('intersection');
       expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('intersection');
     });
 
     it('should work with union method', () => {
-      orchestrator.render('union', mockMethodData);
+      orchestrator.render('union', mockMethodData as MethodData);
 
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('union');
       expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('union');
     });
 
     it('should work with difference method', () => {
-      orchestrator.render('difference', mockMethodData);
+      orchestrator.render('difference', mockMethodData as MethodData);
 
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('difference');
       expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('difference');
     });
 
     it('should work with symmetricDifference method', () => {
-      orchestrator.render('symmetricDifference', mockMethodData);
+      orchestrator.render('symmetricDifference', mockMethodData as MethodData);
 
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith(
         'symmetricDifference'
@@ -208,21 +210,21 @@ describe('renderOrchestrator', () => {
     });
 
     it('should work with isSubsetOf method', () => {
-      orchestrator.render('isSubsetOf', mockMethodData);
+      orchestrator.render('isSubsetOf', mockMethodData as MethodData);
 
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('isSubsetOf');
       expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('isSubsetOf');
     });
 
     it('should work with isSupersetOf method', () => {
-      orchestrator.render('isSupersetOf', mockMethodData);
+      orchestrator.render('isSupersetOf', mockMethodData as MethodData);
 
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('isSupersetOf');
       expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('isSupersetOf');
     });
 
     it('should work with isDisjointFrom method', () => {
-      orchestrator.render('isDisjointFrom', mockMethodData);
+      orchestrator.render('isDisjointFrom', mockMethodData as MethodData);
 
       expect(mockDependencies.diagramRenderer.render).toHaveBeenCalledWith('isDisjointFrom');
       expect(mockDependencies.urlManager.update).toHaveBeenCalledWith('isDisjointFrom');
@@ -231,7 +233,7 @@ describe('renderOrchestrator', () => {
 
   describe('render() - edge cases', () => {
     it('should handle empty object as methodData', () => {
-      orchestrator.render('test', {});
+      orchestrator.render('test', {} as MethodData);
 
       // Empty object is truthy, so all dependencies should be called
       expect(mockDependencies.contentRenderer.render).toHaveBeenCalledWith('test', {});
@@ -242,9 +244,9 @@ describe('renderOrchestrator', () => {
     });
 
     it('should handle methodData with partial properties', () => {
-      const partialData = { emoji: '🎯' };
+      const partialData: Partial<MethodData> = { emoji: '🎯' };
 
-      orchestrator.render('test', partialData);
+      orchestrator.render('test', partialData as MethodData);
 
       expect(mockDependencies.contentRenderer.render).toHaveBeenCalledWith(
         'test',

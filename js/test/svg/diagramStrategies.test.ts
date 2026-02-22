@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getDiagramStrategy } from '../../svg/diagramStrategies.js';
 import { CONFIG } from '../../config/constants.js';
+import type { DiagramStrategy } from '../../types.js';
 
 describe('diagramStrategies', () => {
   describe('getDiagramStrategy', () => {
@@ -33,25 +34,25 @@ describe('diagramStrategies', () => {
   });
 
   describe('diagram creation functions', () => {
-    let differenceDiagram;
-    let intersectionDiagram;
-    let unionDiagram;
-    let symmetricDifferenceDiagram;
-    let disjointDiagram;
-    let subsetDiagram;
-    let supersetDiagram;
+    let differenceDiagram: DiagramStrategy;
+    let intersectionDiagram: DiagramStrategy;
+    let unionDiagram: DiagramStrategy;
+    let symmetricDifferenceDiagram: DiagramStrategy;
+    let disjointDiagram: DiagramStrategy;
+    let subsetDiagram: DiagramStrategy;
+    let supersetDiagram: DiagramStrategy;
 
     beforeEach(() => {
       // get all diagram strategies
-      differenceDiagram = getDiagramStrategy(CONFIG.SET_METHODS.DIFFERENCE);
-      intersectionDiagram = getDiagramStrategy(CONFIG.SET_METHODS.INTERSECTION);
-      unionDiagram = getDiagramStrategy(CONFIG.SET_METHODS.UNION);
+      differenceDiagram = getDiagramStrategy(CONFIG.SET_METHODS.DIFFERENCE)!;
+      intersectionDiagram = getDiagramStrategy(CONFIG.SET_METHODS.INTERSECTION)!;
+      unionDiagram = getDiagramStrategy(CONFIG.SET_METHODS.UNION)!;
       symmetricDifferenceDiagram = getDiagramStrategy(
         CONFIG.SET_METHODS.SYMMETRIC_DIFFERENCE
-      );
-      disjointDiagram = getDiagramStrategy(CONFIG.SET_METHODS.IS_DISJOINT_FROM);
-      subsetDiagram = getDiagramStrategy(CONFIG.SET_METHODS.IS_SUBSET_OF);
-      supersetDiagram = getDiagramStrategy(CONFIG.SET_METHODS.IS_SUPERSET_OF);
+      )!;
+      disjointDiagram = getDiagramStrategy(CONFIG.SET_METHODS.IS_DISJOINT_FROM)!;
+      subsetDiagram = getDiagramStrategy(CONFIG.SET_METHODS.IS_SUBSET_OF)!;
+      supersetDiagram = getDiagramStrategy(CONFIG.SET_METHODS.IS_SUPERSET_OF)!;
     });
 
     describe('common SVG properties', () => {

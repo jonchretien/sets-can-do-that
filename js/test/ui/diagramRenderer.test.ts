@@ -7,13 +7,13 @@ vi.mock('../../svg/diagramStrategies.js', () => ({
 }));
 
 describe('diagramRenderer', () => {
-  let mockGetDiagramStrategy;
-  let mockWrapper;
+  let mockGetDiagramStrategy: ReturnType<typeof vi.fn>;
+  let mockWrapper: HTMLDivElement;
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    mockGetDiagramStrategy = getDiagramStrategy;
+    mockGetDiagramStrategy = getDiagramStrategy as ReturnType<typeof vi.fn>;
     mockWrapper = document.createElement('div');
     mockWrapper.className = 'diagram';
     document.body.appendChild(mockWrapper);
