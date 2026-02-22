@@ -1,6 +1,7 @@
 import { CONFIG } from '../config/constants.js';
+import type { MethodDataMap } from '../types.js';
 
-export function getSetExamplesData() {
+export function getSetExamplesData(): MethodDataMap {
   return {
     [CONFIG.SET_METHODS.DIFFERENCE]: {
       code: `<span class="keyword">const</span> setA = <span class="keyword">new</span> <span class="set">Set</span>([<span class="string">'Chocolate'</span>, <span class="string">'Neapolitan'</span>, <span class="string">'Strawberry'</span>, <span class="string">'Vanilla'</span>]);
@@ -25,7 +26,7 @@ setA.<span class="method">intersection</span>(setB);`,
       code: `<span class="keyword">const</span> setA = <span class="keyword">new</span> Set([<span class="string">'Lions'</span>, <span class="string">'Tigers'</span>, <span class="string">'Bears'</span>, <span class="string">'Eagles'</span>]);
 <span class="keyword">const</span> setB = <span class="keyword">new</span> Set([<span class="string">'Panthers'</span>, <span class="string">'Tigers'</span>, <span class="string">'Wolves'</span>, <span class="string">'Hawks'</span>, <span class="string">'Eagles'</span>]);
 setA.<span class="method">isDisjointFrom</span>(setB);`,
-      description: `The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isDisjointFrom" target="_blank" rel="noopener noreferrer">isDisjointFrom()</a> method checks whether two sets share no elements in common and returns true if they don’t overlap, otherwise it returns false.`,
+      description: `The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isDisjointFrom" target="_blank" rel="noopener noreferrer">isDisjointFrom()</a> method checks whether two sets share no elements in common and returns true if they don't overlap, otherwise it returns false.`,
       example:
         'Check if the first set has no NFL mascots in common with the second set.',
       emoji: '🏈',
@@ -45,7 +46,7 @@ setA.<span class="method">isSubsetOf</span>(setB);`,
       code: `<span class="keyword">const</span> setA = <span class="keyword">new</span> <span class="set">Set</span>([<span class="string">'Yellowstone'</span>, <span class="string">'Yosemite'</span>, <span class="string">'Grand Canyon'</span>, <span class="string">'Zion'</span>]);
 <span class="keyword">const</span> setB = <span class="keyword">new</span> <span class="set">Set</span>([<span class="string">'Acadia'</span>, <span class="string">'Yosemite'</span>, <span class="string">'Glacier'</span>, <span class="string">'Rocky Mountain'</span>, <span class="string">'Zion'</span>]);
 setA.<span class="method">isSupersetOf</span>(setB);`,
-      description: `The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf" target="_blank" rel="noopener noreferrer">isSupersetOf()</a> method checks if a set includes all the items from another set, meaning the second set’s items are fully contained within the first one.`,
+      description: `The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf" target="_blank" rel="noopener noreferrer">isSupersetOf()</a> method checks if a set includes all the items from another set, meaning the second set's items are fully contained within the first one.`,
       example:
         'Check if all national parks in the second set are also in the first set.',
       emoji: '🏞️',
@@ -69,5 +70,5 @@ setA.<span class="method">union</span>(setB);`,
       emoji: '👟',
       output: `<span class="set">Set</span>(7) {<span class="string">'Air Jordan'</span>, <span class="string">'Air Max'</span>, <span class="string">'Blazer'</span>, <span class="string">'Cortez'</span>, <span class="string">'Dunk'</span>, <span class="string">'Air Force 1'</span>, <span class="string">'React'</span>}`,
     },
-  };
+  } as MethodDataMap;
 }
