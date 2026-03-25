@@ -5,10 +5,10 @@ import type { SetMethodName } from '../../types.js';
 
 describe('selectMenu', () => {
   let selectElement: HTMLSelectElement;
-  let onChangeMock: ReturnType<typeof vi.fn>;
+  let onChangeMock: ReturnType<typeof vi.fn<(methodName: SetMethodName) => void>>;
 
   beforeEach(() => {
-    onChangeMock = vi.fn();
+    onChangeMock = vi.fn<(methodName: SetMethodName) => void>();
     selectElement = createSelectMenu(onChangeMock);
   });
 
