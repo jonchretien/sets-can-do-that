@@ -24,6 +24,7 @@
   ],
   "author": "Jon Chretien",
   "license": "ISC",
+  "packageManager": "pnpm@11.3.0",
   "bugs": {
     "url": "https://github.com/jonchretien/sets-can-do-that/issues"
   },

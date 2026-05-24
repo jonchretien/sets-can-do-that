@@ -1,0 +1,8 @@
+# https://pnpm.io/supply-chain-security
+blockExoticSubdeps: true
+minimumReleaseAge: 1440
+trustPolicy: "no-downgrade"
+# transitive deps whose trust mechanism changed between published versions (false positives)
+trustPolicyExclude:
+  - tinyexec
+  - semver

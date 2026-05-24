@@ -224,14 +224,14 @@ Set(7) { 'Air Jordan', 'Air Max', 'Blazer', 'Cortez', 'Dunk', 'Air Force 1', 'Re
 
 ### Local Development
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ### Building for Production
 ```bash
-npm run build
-npm run preview
+pnpm run build
+pnpm run preview
 ```
 
 ### Deployment
@@ -243,7 +243,7 @@ This site is automatically deployed to GitHub Pages via GitHub Actions. The depl
 
 **Manual Deployment:**
 ```bash
-npm run deploy
+pnpm run deploy
 ```
 
 ## Inspiration
