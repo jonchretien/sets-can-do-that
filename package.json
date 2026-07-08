@@ -30,7 +30,7 @@
   },
   "homepage": "https://jonchretien.github.io/sets-can-do-that",
   "devDependencies": {
-    "@vitest/coverage-v8": "^4.1.9",
+    "@vitest/coverage-v8": "^4.1.10",
     "@vitest/ui": "^4.1.10",
     "gh-pages": "^6.3.0",
     "jsdom": "^29.1.1",
